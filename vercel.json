@@ -1,15 +1,13 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "server.js",
-      "use": "@vercel/node"
+  "functions": {
+    "server.js": {
+      "includeFiles": "*.html"
     }
-  ],
+  },
   "routes": [
     {
-      "src": "/styles.css",
-      "dest": "/styles.css"
+      "handle": "filesystem"
     },
     {
       "src": "/(.*)",
