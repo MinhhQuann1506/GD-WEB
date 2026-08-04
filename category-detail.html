@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Danh Sách Sản Phẩm - Gwo Dyi Duty VN</title>
+  <meta name="description" content="Danh sách sản phẩm con thuộc nhóm danh mục sản xuất từ Gwo Dyi Duty VN.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       SITE HEADER & NAVIGATION
+       ========================================================================== -->
+  <header class="site-header" id="siteHeader">
+    <div class="container header-container">
+      <!-- Brand Logo -->
+      <a href="index.html#home" class="brand-logo">
+        <img src="assets/images/logo.png" alt="Gwo Dyi Duty VN Logo" class="brand-logo-img h-12 w-auto object-contain" height="60" width="180">
+        <div class="brand-text">
+          <span class="brand-name">GWO DYI <span>DUTY VN</span></span>
+          <span class="brand-sub">Manufacturing Co., Ltd</span>
+        </div>
+      </a>
+
+      <!-- Navigation Menu -->
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html#home" class="nav-link">Trang chủ</a>
+        <a href="index.html#about" class="nav-link">Giới thiệu</a>
+        <a href="index.html#products" class="nav-link active">Sản phẩm</a>
+        <a href="index.html#contact" class="nav-link">Liên hệ</a>
+      </nav>
+
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <button class="btn btn-primary btn-sm open-rfq-btn">
+          <i class="fa-solid fa-file-invoice"></i>
+          <span>Nhận Báo Giá</span>
+        </button>
+        <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Menu">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main style="padding-top: calc(var(--header-height) + 2rem); padding-bottom: 5rem;">
+    <div class="container">
+      
+      <!-- Top Navigation & Breadcrumb -->
+      <div class="detail-top-bar">
+        <a href="index.html#products" class="btn btn-outline btn-sm">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Quay lại trang chủ</span>
+        </a>
+        <div class="breadcrumb">
+          <a href="index.html">Trang chủ</a>
+          <i class="fa-solid fa-chevron-right breadcrumb-separator"></i>
+          <a href="index.html#products">Danh mục nhóm</a>
+          <i class="fa-solid fa-chevron-right breadcrumb-separator"></i>
+          <span id="breadcrumbCategory">Tên Nhóm Danh Mục</span>
+        </div>
+      </div>
+
+      <!-- Category Group Banner Box (Tier 2 Header) -->
+      <div class="category-header-banner">
+        <div class="cat-banner-content">
+          <div class="detail-badge-group">
+            <span id="catGroupLabel" class="product-tag">Ốc Vít</span>
+            <span id="catCode" class="product-code-badge">Mã Nhóm: CAT-SCW-01</span>
+          </div>
+          <h1 id="catTitle" class="cat-banner-title">Tên Nhóm Danh Mục</h1>
+          <p id="catDesc" class="cat-banner-desc">Mô tả nhóm danh mục sản phẩm</p>
+          <div class="cat-meta-info">
+            <span><i class="fa-solid fa-boxes-stacked text-crimson"></i> <strong id="catProductCount">0</strong> Mặt Hàng Cụ Thể Trong Nhóm</span>
+            <span><i class="fa-solid fa-microscope text-navy"></i> Nhận Gia Công Theo Bản Vẽ & Quy Cách</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sub-Products Listing Grid (Tier 2 Sub-Items) -->
+      <div class="sub-products-wrapper">
+        <div class="header-center" style="margin-bottom: 2.5rem; text-align: left;">
+          <div class="section-tag">Danh Sách Mặt Hàng Cụ Thể (Tầng 2)</div>
+          <h2 class="section-title" style="font-size: 1.85rem;">Các Chủng Loạt Sản Phẩm Con Thuộc Nhóm</h2>
+          <p style="color: #64748B; font-size: 0.95rem;">Chọn một mặt hàng cụ thể dưới đây để xem đầy đủ thông số kỹ thuật chi tiết (Tầng 3).</p>
+        </div>
+
+        <div class="products-grid" id="subProductsGrid">
+          <!-- Dynamically rendered sub-product cards -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       FOOTER
+       ========================================================================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <a href="index.html#home" class="brand-logo footer-logo-box">
+            <img src="assets/images/logo.png" alt="Gwo Dyi Duty VN Logo" class="brand-logo-img h-12 w-auto object-contain" height="60" width="180">
+            <div class="brand-text">
+              <span class="brand-name">GWO DYI <span>DUTY VN</span></span>
+              <span class="brand-sub">Manufacturing Co., Ltd</span>
+            </div>
+          </a>
+          <p>Đơn vị sản xuất và cung ứng các sản phẩm ốc vít, bu lông, tán và linh kiện kim khí phụ trợ công nghiệp cho doanh nghiệp.</p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Điều Hướng</h4>
+          <div class="footer-links">
+            <a href="index.html#home">Trang chủ</a>
+            <a href="index.html#about">Giới thiệu</a>
+            <a href="index.html#products">Sản phẩm</a>
+            <a href="index.html#contact">Liên hệ</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Sản Phẩm & Dịch Vụ</h4>
+          <div class="footer-links">
+            <a href="index.html#products">Ốc Vít Công Nghiệp</a>
+            <a href="index.html#products">Bu Lông Các Loại</a>
+            <a href="index.html#products">Tán & Đai Ốc</a>
+            <a href="index.html#products">Gia Công Theo Bản Vẽ</a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Cam Kết Chất Lượng</h4>
+          <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.6;">
+            Cam kết duy trì hệ thống quản lý chất lượng chuyên nghiệp, quy trình kiểm soát chặt chẽ và hướng tới sự hợp tác lâu dài cùng đối tác.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2026 Gwo Dyi Duty VN Co., Ltd. Tất cả quyền được bảo lưu.</p>
+        <p>Gwo Dyi Duty VN - Manufacturing Excellence</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       RFQ MODAL (Nhận Báo Giá Nhanh)
+       ========================================================================== -->
+  <div class="modal-overlay" id="rfqModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-file-signature text-crimson"></i> Yêu Cầu Báo Giá Sản Phẩm</h3>
+        <button class="modal-close" id="rfqModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="rfqForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Họ tên người liên hệ *</label>
+              <input type="text" class="form-input" placeholder="Nguyễn Văn A" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Số điện thoại / Zalo *</label>
+              <input type="tel" class="form-input" placeholder="0901234567" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email công ty</label>
+              <input type="email" class="form-input" placeholder="purchasing@company.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Sản phẩm cần báo giá</label>
+              <input type="text" id="rfqProductName" class="form-input" value="Ốc Vít & Bu Lông">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Quy cách & Yêu cầu kỹ thuật</label>
+            <textarea class="form-textarea" rows="3" placeholder="Nhập quy cách sản phẩm, kích thước, vật liệu, số lượng hoặc yêu cầu gia công..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Gửi Yêu Cầu Báo Giá</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="productsData.js"></script>
+  <script src="category-detail.js"></script>
+</body>
+</html>
