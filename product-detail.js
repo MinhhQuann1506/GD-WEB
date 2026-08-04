@@ -52,11 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
   if (breadcrumbCurrent) breadcrumbCurrent.textContent = product.name;
   if (product.categoryId) {
     if (detailBackBtn) {
-      detailBackBtn.href = `category-detail.html?id=${product.categoryId}`;
+      detailBackBtn.href = `/category-detail.html?id=${product.categoryId}`;
       detailBackBtn.querySelector('span').textContent = `Quay lại ${product.categoryName || 'nhóm danh mục'}`;
     }
     if (breadcrumbCategoryLink) {
-      breadcrumbCategoryLink.href = `category-detail.html?id=${product.categoryId}`;
+      breadcrumbCategoryLink.href = `/category-detail.html?id=${product.categoryId}`;
       breadcrumbCategoryLink.textContent = product.categoryName || 'Nhóm danh mục';
     }
   }
@@ -211,8 +211,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <h3 class="product-title">${item.name}</h3>
           <p class="product-desc">${item.shortDesc}</p>
           <div class="product-footer">
-            <a href="product-detail.html?id=${item.id}" class="btn btn-outline btn-sm" style="flex: 1; text-align: center;">Xem Chi Tiết</a>
-            <button class="btn btn-primary btn-sm open-rfq-btn" onclick="location.href='product-detail.html?id=${item.id}'">Báo Giá</button>
+            <a href="/product-detail.html?id=${item.id}" class="btn btn-outline btn-sm" style="flex: 1; text-align: center;">Xem Chi Tiết</a>
+            <button class="btn btn-primary btn-sm open-rfq-btn" onclick="location.href='/product-detail.html?id=${item.id}'">Báo Giá</button>
           </div>
         </div>
       `;

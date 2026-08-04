@@ -11,7 +11,7 @@ const categoriesData = [
     code: "CAT-WSCW-01",
     name: "Vít gỗ đầu tròn",
     groupLabel: "Ốc Vít Gỗ",
-    image: "assets/images/product_screws.jpg",
+    image: "/assets/images/product_screws.jpg",
     shortDesc: "Các dòng vít gỗ đầu tròn phục vụ thi công nội thất, đóng đóng chế tạo đồ gỗ và cơ khí gỗ công nghiệp.",
     subcategories: [
       {
@@ -26,8 +26,8 @@ const categoriesData = [
             name: "Vít Gỗ Đầu Tròn Răng Thưa Inox 304 (M4 x 30mm)",
             shortDesc: "Vít gỗ đầu tròn răng thưa Inox 304 độ bền cao, không nứt thớ gỗ, chống gỉ sét môi trường ngoài trời.",
             fullDesc: "Vít Gỗ Đầu Tròn Răng Thưa Inox 304 Gwo Dyi Duty VN có góc ren sắc bén bám chặt vào bề mặt gỗ tự nhiên, gỗ MDF, HDF. Mũi vít nhọn dễ dàng định vị không bị trượt khi thi công tốc độ cao bằng máy siết pin.",
-            mainImage: "assets/images/product_screws.jpg",
-            thumbnails: ["assets/images/product_screws.jpg", "assets/images/factory_hero.jpg"],
+            mainImage: "/assets/images/product_screws.jpg",
+            thumbnails: ["/assets/images/product_screws.jpg", "/assets/images/factory_hero.jpg"],
             specs: {
               "Level 1 (Danh mục chính)": "Vít gỗ đầu tròn",
               "Level 2 (Danh mục con)": "Đầu tròn răng thưa",
@@ -51,8 +51,8 @@ const categoriesData = [
             name: "Vít Gỗ Đầu Tròn Răng Thưa Xi Vàng (M5 x 40mm)",
             shortDesc: "Vít gỗ răng thưa xi mạ kẽm màu vàng thẩm mỹ, bề mặt cứng chịu ứng suất uốn cao.",
             fullDesc: "Dòng vít gỗ xi vàng được ưu chuộng trong ngành sản xuất đồ gỗ xuất khẩu nhờ tính thẩm mỹ đồng màu với gỗ tự nhiên và khả năng gia cố khung kệ gỗ chắc chắn.",
-            mainImage: "assets/images/product_screws.jpg",
-            thumbnails: ["assets/images/product_screws.jpg", "assets/images/product_bolts.jpg"],
+            mainImage: "/assets/images/product_screws.jpg",
+            thumbnails: ["/assets/images/product_screws.jpg", "/assets/images/product_bolts.jpg"],
             specs: {
               "Level 1 (Danh mục chính)": "Vít gỗ đầu tròn",
               "Level 2 (Danh mục con)": "Đầu tròn răng thưa",
@@ -82,8 +82,8 @@ const categoriesData = [
             name: "Vít Gỗ Đầu Tròn Răng Mịn (M4 x 25mm)",
             shortDesc: "Vít gỗ răng mịn chuyên dùng gắn phụ kiện kim loại, tắc-kê nhựa vào khung gỗ.",
             fullDesc: "Vít Gỗ Đầu Tròn Răng Mịn Gwo Dyi Duty VN có mật độ bước ren sát nhau, tăng lực giữ siết khi lắp đặt ray trượt, bản lề lề tủ và phụ kiện kim loại vào thớ gỗ cứng.",
-            mainImage: "assets/images/product_screws.jpg",
-            thumbnails: ["assets/images/product_screws.jpg", "assets/images/product_nuts.jpg"],
+            mainImage: "/assets/images/product_screws.jpg",
+            thumbnails: ["/assets/images/product_screws.jpg", "/assets/images/product_nuts.jpg"],
             specs: {
               "Level 1 (Danh mục chính)": "Vít gỗ đầu tròn",
               "Level 2 (Danh mục con)": "Đầu tròn răng mịn",
@@ -106,7 +106,7 @@ const categoriesData = [
     code: "CAT-BLT-01",
     name: "Bu lông lục giác",
     groupLabel: "Bu Lông",
-    image: "assets/images/product_bolts.jpg",
+    image: "/assets/images/product_bolts.jpg",
     shortDesc: "Các dòng bu lông lục giác chịu ứng suất lực kéo nén lớn phục vụ nhà xưởng, cầu đường và cơ khí nặng.",
     subcategories: [
       {
@@ -121,8 +121,8 @@ const categoriesData = [
             name: "Bu Lông Lục Giác Cường Độ Cao 8.8 (M12 x 60mm)",
             shortDesc: "Bu lông lục giác cấp bền 8.8 mạ kẽm nhúng nóng chịu lực kéo cắt nén trong công trình.",
             fullDesc: "Bu Lông Lục Giác Cường Độ Cao 8.8 Gwo Dyi Duty VN sản xuất từ hợp kim thép luyện nhiệt khắt khe. Sản phẩm được dùng cho mối nối dầm kèo thép nhà xưởng và cầu đường.",
-            mainImage: "assets/images/product_bolts.jpg",
-            thumbnails: ["assets/images/product_bolts.jpg", "assets/images/factory_hero.jpg"],
+            mainImage: "/assets/images/product_bolts.jpg",
+            thumbnails: ["/assets/images/product_bolts.jpg", "/assets/images/factory_hero.jpg"],
             specs: {
               "Level 1 (Danh mục chính)": "Bu lông lục giác",
               "Level 2 (Danh mục con)": "Lục giác cường độ cao 8.8",
@@ -146,7 +146,7 @@ const categoriesData = [
     code: "CAT-NUT-01",
     name: "Tán & Đai ốc",
     groupLabel: "Tán / Đai Ốc",
-    image: "assets/images/product_nuts.jpg",
+    image: "/assets/images/product_nuts.jpg",
     shortDesc: "Các loại đai ốc tiêu chuẩn, đai ốc khóa chống trượt và tán bích ăn khớp mượt mà với bu lông.",
     subcategories: [
       {
@@ -161,8 +161,8 @@ const categoriesData = [
             name: "Tán Khóa Nylon Chống Trượt Inox 304 (M8)",
             shortDesc: "Tán khóa nylon Inox 304 ma sát cao, khóa chặt bu lông dưới rung động cơ khí.",
             fullDesc: "Tán Khóa Nylon Inox 304 Gwo Dyi Duty VN tạo lực ôm siết tự động vào ren bu lông, ngăn tuyệt đối sự nới lỏng khi động cơ rung lắc.",
-            mainImage: "assets/images/product_nuts.jpg",
-            thumbnails: ["assets/images/product_nuts.jpg", "assets/images/product_screws.jpg"],
+            mainImage: "/assets/images/product_nuts.jpg",
+            thumbnails: ["/assets/images/product_nuts.jpg", "/assets/images/product_screws.jpg"],
             specs: {
               "Level 1 (Danh mục chính)": "Tán & Đai ốc",
               "Level 2 (Danh mục con)": "Tán khóa nylon chống trượt",

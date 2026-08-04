@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
               </div>
               <div class="product-footer">
-                <a href="product-detail.html?id=${item.id}" class="btn btn-outline btn-sm" style="flex: 1; text-align: center;">
+                <a href="/product-detail.html?id=${item.id}" class="btn btn-outline btn-sm" style="flex: 1; text-align: center;">
                   Xem Chi Tiết (Level 3)
                 </a>
                 <button class="btn btn-primary btn-sm open-rfq-btn" data-product="${item.name} (${item.code})">
