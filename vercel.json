@@ -1,17 +1,9 @@
 {
   "version": 2,
-  "functions": {
-    "server.js": {
-      "includeFiles": "*.html"
-    }
-  },
-  "routes": [
+  "rewrites": [
     {
-      "handle": "filesystem"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "server.js"
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
