@@ -4,19 +4,17 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware đọc JSON/Form (nếu có)
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Phục vụ file tĩnh (CSS, JS, Images, assets)
+app.use(express.static(path.join(__dirname, '.')));
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
 
-// Trang chủ
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// Chạy local
 if (require.main === module) {
   app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+    console.log(`Gwo Dyi Duty VN Web App running at http://localhost:${PORT}`);
   });
 }
 
