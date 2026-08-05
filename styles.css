@@ -1394,22 +1394,43 @@ button, input, select, textarea {
 
   /* Header */
   .site-header {
-    height: 64px;
+    height: 60px;
   }
-  :root { --header-height: 64px; }
+  :root { --header-height: 60px; }
 
   .header-container {
     padding: 0;
-  }
-
-  .brand-logo-img { height: 36px; }
-  .brand-name { font-size: 1.05rem; }
-  .brand-sub { font-size: 0.6rem; }
-
-  /* Hide nav text buttons on very small screens, keep icons */
-  .header-actions {
     gap: 0.5rem;
   }
+
+  /* Brand: shrink slightly but keep on one line */
+  .brand-logo { gap: 0.45rem; flex-shrink: 1; min-width: 0; }
+  .brand-logo-img { height: 32px; flex-shrink: 0; }
+  .brand-text { min-width: 0; overflow: hidden; }
+  .brand-name { font-size: 0.9rem; white-space: nowrap; }
+  .brand-sub { font-size: 0.55rem; white-space: nowrap; letter-spacing: 0.06em; }
+
+  /* Header action buttons — icon only on mobile */
+  .header-actions {
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  /* Hide text labels inside header buttons, keep icons */
+  #adminAuthBtn span,
+  .open-rfq-btn.btn-sm span {
+    display: none;
+  }
+
+  /* Make header buttons square icon buttons */
+  #adminAuthBtn,
+  .open-rfq-btn.btn-sm {
+    padding: 0.45rem 0.6rem;
+    min-width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+  }
+
 
   /* Hamburger menu */
   .mobile-toggle {
@@ -1421,7 +1442,7 @@ button, input, select, textarea {
   /* Mobile nav dropdown */
   .nav-menu {
     position: fixed;
-    top: 64px;
+    top: 60px;
     left: 0;
     right: 0;
     background: var(--color-white);
@@ -1456,7 +1477,7 @@ button, input, select, textarea {
 
   /* Hero */
   .hero-section {
-    padding-top: calc(64px + 2.5rem);
+    padding-top: calc(60px + 2.5rem);
     padding-bottom: 3rem;
   }
 
