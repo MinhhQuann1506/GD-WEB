@@ -4,27 +4,20 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="pageTitle">Chi Tiết Sản Phẩm - Gwo Dyi Duty VN</title>
-  <meta name="description" content="Chi tiết sản phẩm ốc vít, bu lông, tán công nghiệp gia công theo yêu cầu từ Gwo Dyi Duty VN.">
-  
-  <!-- Google Fonts -->
+  <meta name="description" id="pageMeta" content="Chi tiết thông số kỹ thuật, quy cách và báo giá sản phẩm công nghiệp.">
+
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
-  
-  <!-- FontAwesome Icons CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Stylesheets -->
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 
-  <!-- ==========================================================================
-       SITE HEADER & NAVIGATION
-       ========================================================================== -->
+  <!-- HEADER -->
   <header class="site-header" id="siteHeader">
     <div class="container header-container">
-      <!-- Brand Logo -->
       <a href="/index.html#home" class="brand-logo">
         <img src="/assets/images/logo.png" alt="Gwo Dyi Duty VN Logo" class="brand-logo-img h-12 w-auto object-contain" height="60" width="180">
         <div class="brand-text">
@@ -33,7 +26,6 @@
         </div>
       </a>
 
-      <!-- Navigation Menu -->
       <nav class="nav-menu" id="navMenu">
         <a href="/index.html#home" class="nav-link">Trang chủ</a>
         <a href="/index.html#about" class="nav-link">Giới thiệu</a>
@@ -41,8 +33,11 @@
         <a href="/index.html#contact" class="nav-link">Liên hệ</a>
       </nav>
 
-      <!-- Header Actions -->
       <div class="header-actions">
+        <button class="btn btn-sm" id="adminAuthBtn" style="color: #0f172a; border: 2px solid #334155; background: #f1f5f9; font-weight: 600; border-radius: 8px;">
+          <i class="fa-solid fa-user" style="color: #64748b;"></i>
+          <span id="adminAuthBtnText">Login</span>
+        </button>
         <button class="btn btn-primary btn-sm open-rfq-btn">
           <i class="fa-solid fa-file-invoice"></i>
           <span>Nhận Báo Giá</span>
@@ -54,119 +49,119 @@
     </div>
   </header>
 
-  <main style="padding-top: calc(var(--header-height) + 2rem); padding-bottom: 5rem;">
+  <main style="padding-top: calc(var(--header-height, 80px) + 2rem); padding-bottom: 5rem; min-height: 100vh; background-color: var(--color-slate-50);">
     <div class="container">
-      
-      <!-- Top Navigation & Breadcrumb (Tier 3) -->
-      <div class="detail-top-bar">
-        <a id="detailBackBtn" href="/index.html#products" class="btn btn-outline btn-sm">
-          <i class="fa-solid fa-arrow-left"></i>
-          <span>Quay lại danh mục nhóm</span>
-        </a>
-        <div class="breadcrumb">
-          <a href="/index.html">Trang chủ</a>
-          <i class="fa-solid fa-chevron-right breadcrumb-separator"></i>
-          <a id="breadcrumbCategoryLink" href="/index.html#products">Danh mục nhóm</a>
-          <i class="fa-solid fa-chevron-right breadcrumb-separator"></i>
-          <span id="breadcrumbCurrent">Chi tiết sản phẩm</span>
+
+      <!-- BREADCRUMBS & NAVIGATION -->
+      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:2rem; padding-bottom:1rem; border-bottom:1px solid var(--color-slate-200);">
+        <div style="display:flex; align-items:center; gap:0.75rem; flex-wrap:wrap;">
+          <button class="btn btn-outline btn-sm" id="backToProductsBtn">
+            <i class="fa-solid fa-arrow-left"></i> Quay lại
+          </button>
+          <nav style="display:flex; align-items:center; gap:0.4rem; font-size:0.85rem; color:#475569;">
+            <a href="/index.html" style="color:var(--color-navy-light); text-decoration:none; font-weight:600;">Trang chủ</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:0.65rem; color:#94a3b8;"></i>
+            <a href="/index.html#products" style="color:var(--color-navy-light); text-decoration:none; font-weight:600;">Sản phẩm</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:0.65rem; color:#94a3b8;"></i>
+            <a id="breadcrumbCategory" href="#" style="color:var(--color-navy-light); text-decoration:none; font-weight:600;">Đang tải...</a>
+            <i class="fa-solid fa-chevron-right" style="font-size:0.65rem; color:#94a3b8;"></i>
+            <span id="breadcrumbProduct" style="color:var(--color-slate-600); font-weight:500;">Đang tải...</span>
+          </nav>
         </div>
       </div>
 
-      <!-- Main Product Detail Showcase -->
-      <div class="product-detail-card" id="detailCard">
-        <div class="detail-grid">
-          
-          <!-- Left Column: Image Gallery -->
-          <div class="detail-gallery-col">
-            <div class="main-image-holder">
-              <img id="detailMainImg" src="" alt="Ảnh sản phẩm">
+      <!-- MAIN PRODUCT LAYOUT -->
+      <div style="display:grid; grid-template-columns: 1fr 1.2fr; gap:3rem; margin-bottom:3.5rem;" class="detail-grid">
+        
+        <!-- LEFT COLUMN: IMAGE -->
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div style="background:#ffffff; border:1px solid var(--color-slate-200); border-radius:12px; overflow:hidden; display:flex; align-items:center; justify-content:center; height:400px; box-shadow: var(--shadow-md);">
+            <img id="productImage" src="https://via.placeholder.com/600x400?text=No+Image" alt="" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <div style="font-size:0.85rem; color:var(--color-slate-500); text-align:center;">
+            <i class="fa-solid fa-circle-info"></i> Hình ảnh thực tế chụp tại xưởng Gwo Dyi Duty VN
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: PRODUCT INFO -->
+        <div style="display:flex; flex-direction:column; gap:1.5rem;">
+          <div>
+            <span class="product-tag" style="position:static; margin-bottom:0.75rem; display:inline-block; background-color:rgba(230,57,70,0.1); color:var(--color-crimson); border:1px solid rgba(230,57,70,0.2);">Sản phẩm chi tiết</span>
+            <h1 id="productName" style="font-family:'Montserrat',sans-serif; font-size:2rem; font-weight:800; color:var(--color-navy-dark); line-height:1.2; margin-bottom:0.75rem;">Đang tải...</h1>
+            <div style="font-size:1.75rem; color:var(--color-crimson); font-weight:800; margin-bottom:0.35rem;" id="productPrice">$0.00</div>
+            <div id="productPriceNote" style="font-size:0.82rem; color:var(--color-slate-500); margin-bottom:1rem; display:none;">
+              <i class="fa-solid fa-calculator" style="margin-right:4px;"></i>
+              Đơn giá: <span id="unitPriceDisplay"></span> &times; Đơn trọng: <span id="unitWeightDisplay"></span>g = <span id="totalPriceDisplay" style="color:var(--color-crimson); font-weight:700;"></span>
             </div>
-            <div class="thumbnail-gallery" id="detailThumbnails">
-              <!-- Dynamically populated thumbnails -->
-            </div>
+            <p id="productDescription" style="color:var(--color-slate-600); font-size:1.05rem; line-height:1.7; margin-bottom:1.5rem;">Đang tải mô tả sản phẩm...</p>
           </div>
 
-          <!-- Right Column: Info & Action -->
-          <div class="detail-info-col">
-            <div class="detail-badge-group">
-              <span id="detailBadge" class="product-tag">Ốc Vít</span>
-              <span id="detailCode" class="product-code-badge">Mã: GD-SCW-01</span>
-            </div>
-
-            <h1 id="detailTitle" class="detail-title">Tên sản phẩm</h1>
-            <p id="detailShortDesc" class="detail-short-desc"></p>
-
-            <div class="detail-b2b-box">
-              <i class="fa-solid fa-shield-halved text-crimson" style="font-size: 1.25rem;"></i>
-              <div>
-                <strong>Năng Lực Sản Xuất B2B</strong>
-                <p>Nhận gia công số lượng lớn theo bản vẽ kỹ thuật, quy cách riêng và đảm bảo tiến độ cung ứng cho nhà xưởng.</p>
+          <!-- HIGHLIGHTED SPECIFICATIONS BOX -->
+          <div style="background:#ffffff; border:1px solid var(--color-slate-200); border-radius:8px; padding:1.25rem; font-size:0.95rem; box-shadow:var(--shadow-sm);">
+            <h4 style="color:var(--color-navy-dark); margin-bottom:0.75rem; font-size:1rem; font-weight:700;"><i class="fa-solid fa-list-check" style="color:var(--color-crimson);"></i> Thông Số Nổi Bật</h4>
+            <div style="display:flex; flex-direction:column; gap:0.6rem;">
+              <div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--color-slate-200); padding-bottom:0.4rem;">
+                <span style="color:var(--color-slate-500);">Vật liệu cấu tạo:</span>
+                <strong id="specMaterial" style="color:var(--color-navy-dark);">—</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; border-bottom:1px dashed var(--color-slate-200); padding-bottom:0.4rem;">
+                <span style="color:var(--color-slate-500);">Quy cách kích thước:</span>
+                <strong id="specDimensions" style="color:var(--color-navy-dark);">—</strong>
+              </div>
+              <div style="display:flex; justify-content:space-between; padding-bottom:0.2rem;">
+                <span style="color:var(--color-slate-500);">Đơn trọng:</span>
+                <strong id="specUnitWeight" style="color:var(--color-navy-dark);">—</strong>
               </div>
             </div>
+          </div>
 
-            <!-- Key Features List -->
-            <div class="detail-features-wrapper">
-              <h4>Đặc Điểm Nổi Bật:</h4>
-              <ul id="detailFeatures" class="detail-features-list">
-                <!-- Dynamically populated features -->
-              </ul>
+          <!-- B2B PROCUREMENT CTA -->
+          <div style="background:rgba(15,44,89,0.04); border:1px solid rgba(15,44,89,0.12); border-radius:12px; padding:1.25rem; display:flex; gap:1rem; align-items:center; margin-bottom:1rem;">
+            <i class="fa-solid fa-industry" style="font-size:2rem; color:var(--color-navy-light);"></i>
+            <div>
+              <strong style="color:var(--color-navy-dark); display:block; font-size:0.95rem; margin-bottom:0.2rem;">Năng lực gia công hàng loạt B2B</strong>
+              <span style="color:var(--color-slate-600); font-size:0.85rem; line-height:1.4; display:block;">Nhận chế tạo theo khuôn mẫu, bản vẽ kỹ thuật CAD/PDF và yêu cầu chịu lực đặc biệt của doanh nghiệp.</span>
             </div>
+          </div>
 
-            <!-- CTA Actions -->
-            <div class="detail-cta-group">
-              <button id="detailRfqBtn" class="btn btn-primary btn-lg" style="flex: 1;">
-                <i class="fa-solid fa-paper-plane"></i>
-                <span>Yêu Cầu Báo Giá Sản Phẩm Này</span>
+          <div style="display:flex; gap:1rem; flex-wrap:wrap; width:100%;">
+            <button class="btn btn-primary btn-lg open-rfq-btn" style="flex:2; min-width:200px;" id="rfqButton">
+              <i class="fa-solid fa-file-invoice-dollar"></i> Nhận Báo Giá Ngay
+            </button>
+            <div id="adminProductActions" style="display:none; gap:1rem;">
+              <button class="btn btn-sm" id="editProductBtn" style="background:#f59e0b; color:#fff; border-radius:8px; border:none; padding:0 1.25rem;">
+                <i class="fa-solid fa-pen-to-square"></i> Sửa Bảng Quy Cách
               </button>
-              <a href="/index.html#contact" class="btn btn-navy btn-lg">
-                <i class="fa-solid fa-headset"></i>
-                <span>Tư Vấn Kỹ Thuật</span>
-              </a>
             </div>
-
-          </div>
-
-        </div>
-
-        <!-- Full Detailed Specifications Section -->
-        <div class="detail-specs-section">
-          <div class="section-tag">Thông Số Kỹ Thuật</div>
-          <h2 class="detail-section-title">Bảng Quy Cách & Năng Lực Chế Tạo</h2>
-          <p style="color: #64748B; font-size: 0.95rem; margin-bottom: 2rem;">
-            Thông tin chi tiết về đặc tính cơ lý, vật liệu và khả năng gia công sản phẩm theo yêu cầu của đối tác.
-          </p>
-
-          <div class="specs-table-wrapper">
-            <table class="specs-table" id="detailSpecsTable">
-              <!-- Dynamically populated specs table -->
-            </table>
-          </div>
-
-          <div id="detailFullDesc" class="detail-full-desc-box">
-            <!-- Dynamically populated full description -->
           </div>
         </div>
 
       </div>
 
-      <!-- Related Products Section -->
-      <div class="related-products-section">
-        <div class="header-center" style="margin-bottom: 2.5rem;">
-          <div class="section-tag">Sản Phẩm Liên Quan</div>
-          <h2 class="section-title" style="font-size: 1.85rem;">Có Thể Bạn Quan Tâm</h2>
-        </div>
-
-        <div class="products-grid" id="relatedProductsGrid">
-          <!-- Dynamically populated related products -->
+      <!-- DETAILED SPECIFICATIONS TABLE -->
+      <div style="background:#ffffff; border:1px solid var(--color-slate-200); border-radius:12px; padding:2rem; margin-bottom:4rem; box-shadow:var(--shadow-sm);">
+        <h3 style="font-family:'Montserrat',sans-serif; color:var(--color-navy-dark); font-size:1.4rem; font-weight:700; margin-bottom:1.25rem; display:flex; align-items:center; gap:0.5rem;">
+          <i class="fa-solid fa-clipboard-list" style="color:var(--color-crimson);"></i> Bảng Quy Cách Chi Tiết
+        </h3>
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; text-align:left; font-size:0.95rem;">
+            <thead>
+              <tr style="background:var(--color-navy); border-bottom:2px solid var(--color-slate-200); color:#f8fafc;">
+                <th style="padding:0.85rem 1.25rem;">Đặc tính kỹ thuật</th>
+                <th style="padding:0.85rem 1.25rem;">Giá trị / Tiêu chuẩn áp dụng</th>
+              </tr>
+            </thead>
+            <tbody id="specsTableBody" style="color:var(--color-slate-700);">
+              <!-- Dynamically populated rows -->
+            </tbody>
+          </table>
         </div>
       </div>
 
     </div>
   </main>
 
-  <!-- ==========================================================================
-       FOOTER
-       ========================================================================== -->
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="container">
       <div class="footer-grid">
@@ -178,9 +173,8 @@
               <span class="brand-sub">Manufacturing Co., Ltd</span>
             </div>
           </a>
-          <p>Đơn vị sản xuất và cung ứng các sản phẩm ốc vít, bu lông, tán và linh kiện kim khí phụ trợ công nghiệp cho doanh nghiệp.</p>
+          <p>Đơn vị sản xuất và cung ứng các sản phẩm ốc vít, bu lông, tán và linh kiện kim khí phụ trợ công nghiệp.</p>
         </div>
-
         <div class="footer-col">
           <h4>Điều Hướng</h4>
           <div class="footer-links">
@@ -190,25 +184,20 @@
             <a href="/index.html#contact">Liên hệ</a>
           </div>
         </div>
-
         <div class="footer-col">
-          <h4>Sản Phẩm & Dịch Vụ</h4>
+          <h4>Sản Phẩm &amp; Dịch Vụ</h4>
           <div class="footer-links">
             <a href="/index.html#products">Ốc Vít Công Nghiệp</a>
             <a href="/index.html#products">Bu Lông Các Loại</a>
-            <a href="/index.html#products">Tán & Đai Ốc</a>
+            <a href="/index.html#products">Tán &amp; Đai Ốc</a>
             <a href="/index.html#products">Gia Công Theo Bản Vẽ</a>
           </div>
         </div>
-
         <div class="footer-col">
           <h4>Cam Kết Chất Lượng</h4>
-          <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.6;">
-            Cam kết duy trì hệ thống quản lý chất lượng chuyên nghiệp, quy trình kiểm soát chặt chẽ và hướng tới sự hợp tác lâu dài cùng đối tác.
-          </p>
+          <p style="font-size:0.85rem; color:#94a3b8; line-height:1.6;">Cam kết duy trì hệ thống quản lý chất lượng chuyên nghiệp, quy trình kiểm soát chặt chẽ và hướng tới sự hợp tác lâu dài.</p>
         </div>
       </div>
-
       <div class="footer-bottom">
         <p>&copy; 2026 Gwo Dyi Duty VN Co., Ltd. Tất cả quyền được bảo lưu.</p>
         <p>Gwo Dyi Duty VN - Manufacturing Excellence</p>
@@ -216,13 +205,11 @@
     </div>
   </footer>
 
-  <!-- ==========================================================================
-       RFQ MODAL (Nhận Báo Giá Nhanh)
-       ========================================================================== -->
+  <!-- RFQ MODAL -->
   <div class="modal-overlay" id="rfqModal">
     <div class="modal-card">
       <div class="modal-header">
-        <h3><i class="fa-solid fa-file-signature text-crimson"></i> Yêu Cầu Báo Giá Sản Phẩm</h3>
+        <h3><i class="fa-solid fa-file-signature" style="color:#ef4444;"></i> Yêu Cầu Báo Giá Sản Phẩm</h3>
         <button class="modal-close" id="rfqModalClose">&times;</button>
       </div>
       <div class="modal-body">
@@ -244,24 +231,97 @@
             </div>
             <div class="form-group">
               <label class="form-label">Sản phẩm cần báo giá</label>
-              <input type="text" id="rfqProductName" class="form-input" value="Ốc Vít & Bu Lông">
+              <input type="text" id="rfqProductName" class="form-input" value="">
             </div>
           </div>
           <div class="form-group">
-            <label class="form-label">Quy cách & Yêu cầu kỹ thuật</label>
-            <textarea class="form-textarea" rows="3" placeholder="Nhập quy cách sản phẩm, kích thước, vật liệu, số lượng hoặc yêu cầu gia công..." required></textarea>
+            <label class="form-label">Quy cách &amp; Yêu cầu kỹ thuật</label>
+            <textarea class="form-textarea" rows="3" placeholder="Nhập quy cách sản phẩm, kích thước, vật liệu, số lượng..." required></textarea>
           </div>
-          <button type="submit" class="btn btn-primary btn-lg" style="width: 100%;">Gửi Yêu Cầu Báo Giá</button>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%;">Gửi Yêu Cầu Báo Giá</button>
         </form>
       </div>
     </div>
   </div>
 
-  <!-- Toast Container -->
+  <!-- ADMIN LOGIN MODAL -->
+  <div class="modal-overlay" id="adminLoginModal">
+    <div class="modal-card" style="max-width:420px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-user" style="color:#60a5fa;"></i> Đăng Nhập</h3>
+        <button class="modal-close" id="adminLoginModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="adminLoginForm">
+          <div class="form-group">
+            <label class="form-label" for="loginUsername">Tài khoản</label>
+            <input type="text" id="loginUsername" class="form-input" placeholder="Nhập tài khoản" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loginPassword">Mật khẩu</label>
+            <input type="password" id="loginPassword" class="form-input" placeholder="Nhập mật khẩu" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%; margin-top:1rem;">Đăng Nhập</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN PRODUCT EDIT MODAL -->
+  <div class="modal-overlay" id="adminProductModal">
+    <div class="modal-card" style="max-width:540px;">
+      <div class="modal-header">
+        <h3 id="productModalTitle"><i class="fa-solid fa-pen-to-square" style="color:#f59e0b;"></i> Sửa Sản Phẩm</h3>
+        <button class="modal-close" id="adminProductModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="adminProductForm" enctype="multipart/form-data">
+          <input type="hidden" id="editProductId">
+
+          <div class="form-group">
+            <label class="form-label" for="prodName">Tên sản phẩm *</label>
+            <input type="text" id="prodName" class="form-input" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="prodPrice">Đơn giá ($) *</label>
+              <input type="number" id="prodPrice" step="0.01" min="0" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="prodMaterial">Vật liệu</label>
+              <input type="text" id="prodMaterial" class="form-input">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prodDimensions">Kích thước / Quy cách</label>
+            <input type="text" id="prodDimensions" class="form-input">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prodDescription">Mô tả chi tiết</label>
+            <textarea id="prodDescription" class="form-textarea" rows="2"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="prodImage">Hình ảnh sản phẩm</label>
+            <input type="file" id="prodImage" class="form-input" accept="image/*">
+            <div id="prodImagePreviewBox" style="margin-top:0.5rem; width:100%; height:100px; border:1px dashed rgba(255,255,255,0.2); border-radius:8px; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#0f172a;">
+              <img id="prodImagePreview" src="" alt="Preview" style="display:none; width:100%; height:100%; object-fit:cover;">
+              <span id="prodImagePlaceholder" style="font-size:0.85rem; color:#94a3b8;">Chưa chọn ảnh mới</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" id="productSubmitBtn" style="width:100%; margin-top:1rem;">Cập nhật Sản Phẩm</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
   <div class="toast-container" id="toastContainer"></div>
 
-  <!-- Scripts -->
-  <script src="/productsData.js"></script>
   <script src="/product-detail.js"></script>
 </body>
 </html>

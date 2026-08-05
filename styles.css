@@ -1780,3 +1780,68 @@ body.dark-page .btn-outline:hover {
 .toast strong { color: #ffffff !important; }
 .toast span   { color: #cbd5e1 !important; }
 
+/* ==========================================================================
+   GLOBAL DARK-PAGE CONFIGURATION & HEADER CONTRAST OVERRIDES
+   (dark-page class removed from pages; these rules are kept for future use)
+   ========================================================================== */
+body.dark-page {
+  /* background intentionally left as default (white/slate-50) */
+  color: #1e293b;
+}
+
+body.dark-page p {
+  color: #cbd5e1;
+}
+
+body.dark-page h1,
+body.dark-page h2,
+body.dark-page h3,
+body.dark-page h4 {
+  color: #ffffff;
+}
+
+/* Site header elements contrast when NOT scrolled on dark background pages */
+body.dark-page .site-header:not(.scrolled) {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+body.dark-page .site-header:not(.scrolled) .nav-link {
+  color: #e2e8f0;
+}
+
+body.dark-page .site-header:not(.scrolled) .brand-name {
+  color: #ffffff;
+}
+
+body.dark-page .site-header:not(.scrolled) .brand-sub {
+  color: #94a3b8;
+}
+
+body.dark-page .site-header:not(.scrolled) .mobile-toggle {
+  color: #ffffff;
+}
+
+/* Site header elements contrast when scrolled (turns into white header) */
+body.dark-page .site-header.scrolled {
+  background: rgba(255, 255, 255, 0.98);
+  border-bottom: 1px solid rgba(15, 44, 89, 0.1);
+}
+
+body.dark-page .site-header.scrolled .nav-link {
+  color: var(--color-slate-700);
+}
+
+body.dark-page .site-header.scrolled .brand-name {
+  color: var(--color-navy);
+}
+
+body.dark-page .site-header.scrolled .brand-sub {
+  color: var(--color-slate-500);
+}
+
+body.dark-page .site-header.scrolled .mobile-toggle {
+  color: var(--color-navy);
+}
+
+

@@ -26,9 +26,12 @@ const productSchema = new mongoose.Schema(
       default: '',
     },
     specifications: {
-      material: { type: String, default: 'Inox 304, Thép cacbon' },
-      dimensions: { type: String, default: 'M3 - M24' },
-      grade: { type: String, default: '4.8, 8.8, 10.9' },
+      material:     { type: String, default: 'Inox 304, Thép cacbon' },
+      dimensions:   { type: String, default: 'M3 - M24' },
+      unitWeight:   { type: Number, default: 0 },  // trọng lượng 1 con hàng (gram)
+      manufacturer: { type: String, default: 'GWO DYI DUTY VN Co., Ltd' },
+      customWork:   { type: String, default: 'Có (Bản vẽ CAD/PDF, mẫu sản phẩm)' },
+      warranty:     { type: String, default: 'Cam kết đổi mới với sản phẩm lỗi dung sai' },
     },
     imageUrl: {
       type: String,

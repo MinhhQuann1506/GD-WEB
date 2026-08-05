@@ -70,6 +70,10 @@ app.get('/category-detail.html', (req, res) => {
   res.sendFile(path.join(rootDir, 'category-detail.html'));
 });
 
+app.get('/product-detail.html', (req, res) => {
+  res.sendFile(path.join(rootDir, 'product-detail.html'));
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.join(rootDir, 'index.html'));
 });

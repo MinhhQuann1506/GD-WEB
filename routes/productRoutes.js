@@ -59,7 +59,7 @@ async function resolveValidCategoryId(catIdInput) {
 // POST /api/products - Add Tier 2 product under category
 router.post('/', uploadSingleImage('image'), async (req, res) => {
   try {
-    let { name, price, description, categoryId, categorySlug, specsMaterial, specsDimensions, specsGrade } = req.body;
+    let { name, price, description, categoryId, categorySlug, specsMaterial, specsDimensions, unitWeight, specsManufacturer, specsCustomWork, specsWarranty } = req.body;
 
     if (!name || price === undefined || price === null || price === '') {
       return res.status(400).json({ success: false, error: 'Product name and price are required.' });
@@ -101,9 +101,12 @@ router.post('/', uploadSingleImage('image'), async (req, res) => {
       categorySlug: resolvedSlug,   // explicitly set (may be null for DB categories)
       description: description || '',
       specifications: {
-        material: specsMaterial || 'Inox 304, Thép cacbon',
-        dimensions: specsDimensions || 'Tiêu chuẩn',
-        grade: specsGrade || '8.8',
+        material:     specsMaterial     || 'Inox 304, Thép cacbon',
+        dimensions:   specsDimensions   || 'Tiêu chuẩn',
+        unitWeight:   Number(unitWeight) || 0,
+        manufacturer: specsManufacturer || 'GWO DYI DUTY VN Co., Ltd',
+        customWork:   specsCustomWork   || 'Có (Bản vẽ CAD/PDF, mẫu sản phẩm)',
+        warranty:     specsWarranty     || 'Cam kết đổi mới với sản phẩm lỗi dung sai',
       },
       imageUrl,
       cloudinaryId,
@@ -124,7 +127,7 @@ router.post('/', uploadSingleImage('image'), async (req, res) => {
 router.put('/:id', uploadSingleImage('image'), async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, price, description, categoryId, categorySlug, specsMaterial, specsDimensions, specsGrade } = req.body;
+    const { name, price, description, categoryId, categorySlug, specsMaterial, specsDimensions, unitWeight, specsManufacturer, specsCustomWork, specsWarranty } = req.body;
 
     let product = await Product.findById(id);
 
@@ -156,11 +159,17 @@ router.put('/:id', uploadSingleImage('image'), async (req, res) => {
     if (categorySlug !== undefined) product.categorySlug = categorySlug;
     product.description = description !== undefined ? description : product.description;
 
-    product.specifications = {
-      material: specsMaterial !== undefined ? specsMaterial : (product.specifications?.material || ''),
-      dimensions: specsDimensions !== undefined ? specsDimensions : (product.specifications?.dimensions || ''),
-      grade: specsGrade !== undefined ? specsGrade : (product.specifications?.grade || ''),
-    };
+    if (!product.specifications) {
+      product.specifications = {};
+    }
+    if (specsMaterial !== undefined)     product.specifications.material     = specsMaterial;
+    if (specsDimensions !== undefined)   product.specifications.dimensions   = specsDimensions;
+    if (unitWeight !== undefined)        product.specifications.unitWeight   = Number(unitWeight) || 0;
+    if (specsManufacturer !== undefined) product.specifications.manufacturer = specsManufacturer;
+    if (specsCustomWork !== undefined)   product.specifications.customWork   = specsCustomWork;
+    if (specsWarranty !== undefined)     product.specifications.warranty     = specsWarranty;
+
+    product.markModified('specifications');
 
     product.imageUrl = imageUrl;
     product.cloudinaryId = cloudinaryId;

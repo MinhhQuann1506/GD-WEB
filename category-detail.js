@@ -275,8 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function attachProductListeners() {
     document.querySelectorAll('.view-spec-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        const prod = products.find(p => p._id === btn.dataset.id);
-        if (prod) openSpecModal(prod);
+        window.location.href = `/product-detail.html?id=${btn.dataset.id}`;
       });
     });
 

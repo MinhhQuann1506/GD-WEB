@@ -1,182 +1,396 @@
 /**
- * Gwo Dyi Duty VN - Level 3 Logic (Specific Product Detail Page)
+ * product-detail.js
+ * Fully independent product specification detail page.
+ * Reads productId from URL: /product-detail.html?id=PRODUCT_MONGO_ID
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+
   const urlParams = new URLSearchParams(window.location.search);
-  let productId = urlParams.get('id');
+  const PRODUCT_ID = urlParams.get('id');
 
-  let product = getProductById(productId);
-  if (!product) {
-    product = getProductById('vit-go-dau-tron-rang-thua-inox-m4x30');
-    productId = product.id;
+  if (!PRODUCT_ID) {
+    showError('Không tìm thấy ID sản phẩm. Vui lòng quay lại trang chủ.');
+    return;
   }
 
-  // Mobile menu toggle
-  const mobileToggle = document.getElementById('mobileToggle');
-  const navMenu = document.getElementById('navMenu');
-  if (mobileToggle) {
-    mobileToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('active');
-    });
+  // DOM elements
+  const siteHeader        = document.getElementById('siteHeader');
+  const navMenu           = document.getElementById('navMenu');
+  const mobileToggle      = document.getElementById('mobileToggle');
+
+  const adminAuthBtn      = document.getElementById('adminAuthBtn');
+  const adminAuthBtnText  = document.getElementById('adminAuthBtnText');
+
+  const backToProductsBtn = document.getElementById('backToProductsBtn');
+  const breadcrumbCategory = document.getElementById('breadcrumbCategory');
+  const breadcrumbProduct  = document.getElementById('breadcrumbProduct');
+
+  const productImage     = document.getElementById('productImage');
+  const productName      = document.getElementById('productName');
+  const productPrice     = document.getElementById('productPrice');
+  const productDescription = document.getElementById('productDescription');
+
+  const specMaterial     = document.getElementById('specMaterial');
+  const specDimensions   = document.getElementById('specDimensions');
+  const specUnitWeight   = document.getElementById('specUnitWeight');
+  const productPriceNote = document.getElementById('productPriceNote');
+  const unitPriceDisplay = document.getElementById('unitPriceDisplay');
+  const unitWeightDisplay = document.getElementById('unitWeightDisplay');
+  const totalPriceDisplay = document.getElementById('totalPriceDisplay');
+  const specsTableBody   = document.getElementById('specsTableBody');
+
+  const rfqModal          = document.getElementById('rfqModal');
+  const rfqModalClose     = document.getElementById('rfqModalClose');
+  const rfqProductName    = document.getElementById('rfqProductName');
+  const rfqForm           = document.getElementById('rfqForm');
+  const rfqButton         = document.getElementById('rfqButton');
+  const openRfqBtnHeader  = document.querySelector('.open-rfq-btn');
+
+  const adminLoginModal      = document.getElementById('adminLoginModal');
+  const adminLoginModalClose = document.getElementById('adminLoginModalClose');
+  const adminLoginForm       = document.getElementById('adminLoginForm');
+  const loginUsername        = document.getElementById('loginUsername');
+  const loginPassword        = document.getElementById('loginPassword');
+  const toastContainer       = document.getElementById('toastContainer');
+
+  let productData = null;
+  let categoryData = null;
+
+
+  // Admin specific DOM elements
+  const adminProductActions  = document.getElementById('adminProductActions');
+  const editProductBtn       = document.getElementById('editProductBtn');
+  const deleteProductBtn     = document.getElementById('deleteProductBtn');
+
+  const adminProductModal    = document.getElementById('adminProductModal');
+  const adminProductModalClose = document.getElementById('adminProductModalClose');
+  const adminProductForm     = document.getElementById('adminProductForm');
+  const editProductId        = document.getElementById('editProductId');
+  const prodName             = document.getElementById('prodName');
+  const prodPrice            = document.getElementById('prodPrice');
+  const prodMaterial         = document.getElementById('prodMaterial');
+  const prodDimensions       = document.getElementById('prodDimensions');
+  const prodDescription      = document.getElementById('prodDescription');
+  const prodImage            = document.getElementById('prodImage');
+  const prodImagePreview     = document.getElementById('prodImagePreview');
+  const prodImagePlaceholder = document.getElementById('prodImagePlaceholder');
+  const productSubmitBtn     = document.getElementById('productSubmitBtn');
+
+  // Init
+  checkAdminState();
+  loadProduct();
+
+  // Sticky header
+  window.addEventListener('scroll', () => {
+    siteHeader?.classList.toggle('scrolled', window.scrollY > 40);
+  });
+  mobileToggle?.addEventListener('click', () => navMenu?.classList.toggle('active'));
+
+  // Admin login check
+  function isAdmin() {
+    return localStorage.getItem('isAdmin') === 'true' || !!localStorage.getItem('adminToken');
   }
 
-  // Update Page Title
-  document.title = `${product.name} - Gwo Dyi Duty VN`;
-
-  // DOM Elements
-  const breadcrumbCurrent = document.getElementById('breadcrumbCurrent');
-  const breadcrumbCategoryLink = document.getElementById('breadcrumbCategoryLink');
-  const detailBackBtn = document.getElementById('detailBackBtn');
-  const detailBadge = document.getElementById('detailBadge');
-  const detailCode = document.getElementById('detailCode');
-  const detailTitle = document.getElementById('detailTitle');
-  const detailShortDesc = document.getElementById('detailShortDesc');
-  const detailMainImg = document.getElementById('detailMainImg');
-  const detailThumbnails = document.getElementById('detailThumbnails');
-  const detailFeatures = document.getElementById('detailFeatures');
-  const detailSpecsTable = document.getElementById('detailSpecsTable');
-  const detailFullDesc = document.getElementById('detailFullDesc');
-  const detailRfqBtn = document.getElementById('detailRfqBtn');
-  const relatedProductsGrid = document.getElementById('relatedProductsGrid');
-
-  // RFQ Modal Elements
-  const rfqModal = document.getElementById('rfqModal');
-  const rfqModalClose = document.getElementById('rfqModalClose');
-  const rfqProductNameInput = document.getElementById('rfqProductName');
-  const rfqForm = document.getElementById('rfqForm');
-  const openRfqBtns = document.querySelectorAll('.open-rfq-btn');
-  const toastContainer = document.getElementById('toastContainer');
-
-  // 1. Populate Basic Info & Level 2 Back Link
-  if (breadcrumbCurrent) breadcrumbCurrent.textContent = product.name;
-  if (product.categoryId) {
-    if (detailBackBtn) {
-      detailBackBtn.href = `/category-detail.html?id=${product.categoryId}`;
-      detailBackBtn.querySelector('span').textContent = `Quay lại ${product.categoryName || 'nhóm danh mục'}`;
+  function checkAdminState() {
+    const admin = isAdmin();
+    if (admin) {
+      if (adminAuthBtnText) adminAuthBtnText.textContent = 'Logout';
+      if (adminProductActions) adminProductActions.style.display = 'flex';
+    } else {
+      if (adminAuthBtnText) adminAuthBtnText.textContent = 'Login';
+      if (adminProductActions) adminProductActions.style.display = 'none';
     }
-    if (breadcrumbCategoryLink) {
-      breadcrumbCategoryLink.href = `/category-detail.html?id=${product.categoryId}`;
-      breadcrumbCategoryLink.textContent = product.categoryName || 'Nhóm danh mục';
+  }
+
+  adminAuthBtn?.addEventListener('click', () => {
+    if (isAdmin()) {
+      localStorage.removeItem('isAdmin');
+      localStorage.removeItem('adminToken');
+      showToast('Đã đăng xuất Admin.', 'info');
+      checkAdminState();
+    } else {
+      adminLoginModal?.classList.add('active');
     }
-  }
+  });
 
-  if (detailBadge) detailBadge.textContent = product.subcategoryName || product.groupLabel || 'Ốc Vít Gỗ';
-  if (detailCode) detailCode.textContent = `Mã SP: ${product.code}`;
-  if (detailTitle) detailTitle.textContent = product.name;
-  if (detailShortDesc) detailShortDesc.textContent = product.shortDesc;
+  adminLoginModalClose?.addEventListener('click', () => adminLoginModal?.classList.remove('active'));
 
-  // 2. Populate Gallery
-  if (detailMainImg) {
-    detailMainImg.src = product.mainImage;
-    detailMainImg.alt = product.name;
-  }
-
-  if (detailThumbnails && product.thumbnails) {
-    detailThumbnails.innerHTML = '';
-    product.thumbnails.forEach((thumbSrc, index) => {
-      const thumb = document.createElement('img');
-      thumb.src = thumbSrc;
-      thumb.alt = `${product.name} thumbnail ${index + 1}`;
-      thumb.className = `thumb-img ${index === 0 ? 'active' : ''}`;
-      
-      thumb.addEventListener('click', () => {
-        detailMainImg.src = thumbSrc;
-        document.querySelectorAll('.thumb-img').forEach(t => t.classList.remove('active'));
-        thumb.classList.add('active');
+  adminLoginForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: loginUsername.value.trim(), password: loginPassword.value.trim() })
       });
-
-      detailThumbnails.appendChild(thumb);
-    });
-  }
-
-  // 3. Populate Features List
-  if (detailFeatures && product.features) {
-    detailFeatures.innerHTML = '';
-    product.features.forEach(feature => {
-      const li = document.createElement('li');
-      li.innerHTML = `<i class="fa-solid fa-circle-check text-crimson"></i> <span>${feature}</span>`;
-      detailFeatures.appendChild(li);
-    });
-  }
-
-  // 4. Populate 3-Tier Technical Specs Table
-  if (detailSpecsTable && product.specs) {
-    let tableHtml = `
-      <thead>
-        <tr>
-          <th>Hạng Mục Kỹ Thuật (3 Tầng Catalogue)</th>
-          <th>Thông Số & Năng Lực Cung Ứng</th>
-        </tr>
-      </thead>
-      <tbody>
-    `;
-
-    Object.entries(product.specs).forEach(([key, value], idx) => {
-      const bgClass = idx % 2 === 1 ? 'style="background-color: #F8FAFC;"' : '';
-      tableHtml += `
-        <tr ${bgClass}>
-          <td class="spec-key-col">${key}</td>
-          <td class="spec-val-col">${value}</td>
-        </tr>
-      `;
-    });
-
-    tableHtml += `</tbody>`;
-    detailSpecsTable.innerHTML = tableHtml;
-  }
-
-  // 5. Populate Full Description Box
-  if (detailFullDesc && product.fullDesc) {
-    detailFullDesc.innerHTML = `
-      <h3 style="font-family: var(--font-display); color: var(--color-navy); margin-bottom: 0.75rem; font-size: 1.2rem;">
-        <i class="fa-solid fa-circle-info text-crimson"></i> Mô Tả Ứng Dụng Kỹ Thuật B2B
-      </h3>
-      <p style="color: #475569; line-height: 1.7; font-size: 0.98rem;">${product.fullDesc}</p>
-    `;
-  }
-
-  // 6. Setup RFQ Actions
-  function openRfqWithProduct() {
-    if (rfqProductNameInput) {
-      rfqProductNameInput.value = `${product.name} (${product.code})`;
+      const result = await res.json();
+      if (result.success) {
+        localStorage.setItem('isAdmin', 'true');
+        if (result.token) localStorage.setItem('adminToken', result.token);
+        showToast('Đăng nhập Admin thành công!');
+        adminLoginModal?.classList.remove('active');
+        adminLoginForm.reset();
+        checkAdminState();
+      } else {
+        showToast(result.message || 'Đăng nhập thất bại', 'error');
+      }
+    } catch {
+      showToast('Lỗi kết nối server', 'error');
     }
-    if (rfqModal) {
-      rfqModal.classList.add('active');
-    }
-  }
-
-  if (detailRfqBtn) {
-    detailRfqBtn.addEventListener('click', openRfqWithProduct);
-  }
-
-  openRfqBtns.forEach(btn => {
-    btn.addEventListener('click', openRfqWithProduct);
   });
 
-  if (rfqModalClose) {
-    rfqModalClose.addEventListener('click', () => {
-      rfqModal.classList.remove('active');
+  // Admin Product Actions (Edit & Delete)
+  // Inline edit specs table
+  let isEditingSpecs = false;
+
+  editProductBtn?.addEventListener('click', () => {
+    if (!productData) return;
+    if (!isEditingSpecs) {
+      enterEditMode();
+    } else {
+      saveSpecsInline();
+    }
+  });
+
+  function enterEditMode() {
+    isEditingSpecs = true;
+    editProductBtn.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Lưu Thay Đổi';
+    editProductBtn.style.background = '#10b981';
+
+    // Convert each editable value cell to an input
+    document.querySelectorAll('[data-edit-field]').forEach(td => {
+      const currentVal = td.textContent.trim();
+      td.innerHTML = `<input type="text"
+        value="${esc(currentVal)}"
+        style="width:100%;padding:0.35rem 0.5rem;border:1.5px solid #3b82f6;border-radius:6px;font-size:0.95rem;color:#0f2c59;outline:none;background:#fff;"
+        data-field="${td.dataset.editField}"
+      >`;
     });
   }
 
-  window.addEventListener('click', (e) => {
-    if (e.target === rfqModal) rfqModal.classList.remove('active');
+  async function saveSpecsInline() {
+    if (!productData) return;
+
+    // Helper to get input value directly by data-field
+    const getVal = (field) => {
+      const el = document.querySelector(`input[data-field="${field}"]`);
+      return el ? el.value.trim() : null;
+    };
+
+    const updatedName        = getVal('name') ?? productData.name;
+    const updatedMaterial    = getVal('material') ?? '';
+    const updatedDimensions  = getVal('dimensions') ?? '';
+    const updatedUnitWeight  = getVal('unitWeight') ?? '0';
+    const updatedMfg         = getVal('manufacturer') ?? '';
+    const updatedCustom      = getVal('custom') ?? '';
+    const updatedWarranty    = getVal('warranty') ?? '';
+
+    try {
+      editProductBtn.disabled = true;
+      editProductBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Đang lưu...';
+
+      const formData = new FormData();
+      formData.append('name', updatedName);
+      formData.append('price', productData.price);
+      formData.append('categoryId', productData.categoryId?._id || productData.categoryId || '');
+      formData.append('description', productData.description || '');
+      formData.append('specsMaterial', updatedMaterial);
+      formData.append('specsDimensions', updatedDimensions);
+      formData.append('unitWeight', parseFloat(updatedUnitWeight) || 0);
+      formData.append('specsManufacturer', updatedMfg);
+      formData.append('specsCustomWork', updatedCustom);
+      formData.append('specsWarranty', updatedWarranty);
+
+      const res = await fetch(`/api/products/${productData._id}`, { method: 'PUT', body: formData });
+      const result = await res.json();
+
+      if (res.ok && result.success) {
+        showToast('Đã lưu bảng quy cách thành công!');
+        isEditingSpecs = false;
+        await loadProduct(); // reload fresh data
+      } else {
+        showToast(result.error || 'Lưu thất bại', 'error');
+        cancelEditMode();
+      }
+    } catch (err) {
+      console.error(err);
+      showToast('Lỗi kết nối server', 'error');
+      cancelEditMode();
+    } finally {
+      editProductBtn.disabled = false;
+      editProductBtn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Sửa Bảng Quy Cách';
+      editProductBtn.style.background = '#f59e0b';
+    }
+  }
+
+  function cancelEditMode() {
+    isEditingSpecs = false;
+    editProductBtn.innerHTML = '<i class="fa-solid fa-pen-to-square"></i> Sửa Bảng Quy Cách';
+    editProductBtn.style.background = '#f59e0b';
+    if (productData) buildSpecsTable(productData); // restore original values
+  }
+
+  // Load product detail
+  async function loadProduct() {
+    try {
+      const res = await fetch(`/api/products/${PRODUCT_ID}`);
+      if (!res.ok) throw new Error('Product not found');
+      const json = await res.json();
+      productData = json.data;
+
+      if (!productData) throw new Error('Product not found');
+
+      // Update main info
+      document.title = `${productData.name} - Gwo Dyi Duty VN`;
+      if (productName) productName.textContent = productData.name;
+      if (breadcrumbProduct) breadcrumbProduct.textContent = productData.name;
+      // Price & Weight calculation
+      const unitPrice = Number(productData.price) || 0;
+      const specs = productData.specifications || {};
+      const unitWeight = Number(specs.unitWeight) || 0;
+      const calcPrice = unitPrice * unitWeight;
+
+      if (unitWeight > 0) {
+        if (productPrice) productPrice.textContent = `$${calcPrice.toFixed(2)}`;
+        if (productPriceNote) productPriceNote.style.display = 'block';
+        if (unitPriceDisplay) unitPriceDisplay.textContent = `$${unitPrice.toFixed(2)}`;
+        if (unitWeightDisplay) unitWeightDisplay.textContent = `${unitWeight}`;
+        if (totalPriceDisplay) totalPriceDisplay.textContent = `$${calcPrice.toFixed(2)}`;
+      } else {
+        if (productPrice) productPrice.textContent = `$${unitPrice.toFixed(2)}`;
+        if (productPriceNote) productPriceNote.style.display = 'none';
+      }
+
+      if (productDescription) productDescription.textContent = productData.description || 'Gia công chế tạo cơ khí phụ trợ công nghiệp.';
+      if (productImage && productData.imageUrl) productImage.src = productData.imageUrl;
+
+      // Update specifications highlights
+      if (specMaterial) specMaterial.textContent = specs.material || 'Inox 304 / Thép cacbon';
+      if (specDimensions) specDimensions.textContent = specs.dimensions || 'Theo bản vẽ';
+      if (specUnitWeight) specUnitWeight.textContent = unitWeight ? `${unitWeight} g` : '—';
+
+      // Load category info for breadcrumb
+      let catId = productData.categoryId?._id || productData.categoryId;
+      if (!catId && productData.categorySlug) {
+        // Fallback for legacy categories
+        const slugMap = {
+          'screws': { id: 'legacy-screws', title: 'Vít Gỗ Đầu Tròn (Round Head Wood Screw)' },
+          'bolts':  { id: 'legacy-bolts',  title: 'Bu Lông Lục Giác (Hex Bolt)' },
+          'nuts':   { id: 'legacy-nuts',   title: 'Tán & Đai Ốc (Nut & Lock Nut)' }
+        };
+        categoryData = slugMap[productData.categorySlug];
+      } else if (catId) {
+        try {
+          const catRes = await fetch(`/api/categories/${catId}`);
+          if (catRes.ok) {
+            const catJson = await catRes.json();
+            categoryData = catJson.data;
+          }
+        } catch (err) {
+          console.error('Error fetching category info:', err);
+        }
+      }
+
+      if (categoryData) {
+        if (breadcrumbCategory) {
+          breadcrumbCategory.textContent = categoryData.title;
+          breadcrumbCategory.href = `/category-detail.html?id=${categoryData._id || categoryData.id}`;
+        }
+        if (backToProductsBtn) {
+          backToProductsBtn.addEventListener('click', () => {
+            window.location.href = `/category-detail.html?id=${categoryData._id || categoryData.id}`;
+          });
+        }
+      } else {
+        if (breadcrumbCategory) {
+          breadcrumbCategory.textContent = 'Danh mục';
+          breadcrumbCategory.href = '/index.html#products';
+        }
+        if (backToProductsBtn) {
+          backToProductsBtn.addEventListener('click', () => {
+            window.location.href = '/index.html#products';
+          });
+        }
+      }
+
+      // Build detailed specs table
+      buildSpecsTable(productData);
+
+    } catch (err) {
+      console.error('loadProduct error:', err);
+      showError('Không thể tải chi tiết sản phẩm. Vui lòng thử lại sau.');
+    }
+  }
+
+  function buildSpecsTable(prod) {
+    if (!specsTableBody) return;
+    const specs = prod.specifications || {};
+    // data-edit-field marks cells that admin can edit inline
+    const rows = [
+      { key: 'Tên thương mại',        val: prod.name,                                                   field: 'name' },
+      { key: 'Vật liệu cấu tạo',      val: specs.material    || 'Inox 304, Thép cacbon',                field: 'material' },
+      { key: 'Quy cách kích thước',   val: specs.dimensions  || 'M3 - M24, Chiều dài tùy chọn',        field: 'dimensions' },
+      { key: 'Đơn trọng',             val: specs.unitWeight !== undefined ? specs.unitWeight : 0, field: 'unitWeight' },
+      { key: 'Nhà sản xuất',          val: specs.manufacturer || 'GWO DYI DUTY VN Co., Ltd',            field: 'manufacturer' },
+      { key: 'Gia công theo yêu cầu', val: specs.customWork  || 'Có (Bản vẽ CAD/PDF, mẫu sản phẩm)',   field: 'custom' },
+      { key: 'Bảo hành kỹ thuật',     val: specs.warranty    || 'Cam kết đổi mới với sản phẩm lỗi dung sai', field: 'warranty' },
+    ];
+
+    specsTableBody.innerHTML = rows.map(row => `
+      <tr style="border-bottom:1px solid #e2e8f0;">
+        <td style="padding:0.75rem 1.25rem;font-weight:600;color:#475569;background:#f8fafc;width:35%;">${esc(row.key)}</td>
+        <td style="padding:0.75rem 1.25rem;color:#0f2c59;font-weight:500;" data-edit-field="${row.field}">${esc(row.val)}</td>
+      </tr>
+    `).join('');
+  }
+
+  // RFQ Event Listeners
+  const triggerRfqModal = () => {
+    if (rfqProductName && productData) {
+      rfqProductName.value = productData.name;
+    }
+    rfqModal?.classList.add('active');
+  };
+
+  rfqButton?.addEventListener('click', triggerRfqModal);
+  openRfqBtnHeader?.addEventListener('click', triggerRfqModal);
+  rfqModalClose?.addEventListener('click', () => rfqModal?.classList.remove('active'));
+
+  rfqForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    showToast('Yêu cầu báo giá của bạn đã được gửi thành công.');
+    rfqForm.reset();
+    rfqModal?.classList.remove('active');
   });
 
-  // 7. Toast Notification helper
-  function showToast(message) {
+  // Helpers
+  function showError(msg) {
+    const container = document.querySelector('main .container');
+    if (container) {
+      container.innerHTML = `
+        <div style="text-align:center;padding:6rem 2rem;color:#ef4444;">
+          <i class="fa-solid fa-circle-exclamation" style="font-size:3.5rem;margin-bottom:1.5rem;display:block;"></i>
+          <h2 style="color:#f8fafc;margin-bottom:0.5rem;">Không Thể Tải Sản Phẩm</h2>
+          <p style="color:#94a3b8;margin-bottom:1.5rem;">${msg}</p>
+          <a href="/index.html#products" class="btn btn-primary btn-sm">Quay lại trang chủ</a>
+        </div>`;
+    }
+  }
+
+  function showToast(message, type = 'success') {
+    if (!toastContainer) return;
     const toast = document.createElement('div');
     toast.className = 'toast';
+    const iconClass = type === 'error' ? 'fa-circle-exclamation' : type === 'info' ? 'fa-circle-info' : 'fa-circle-check';
+    const iconColor = type === 'error' ? '#ef4444' : type === 'info' ? '#3b82f6' : '#10b981';
     toast.innerHTML = `
-      <i class="fa-solid fa-circle-check text-crimson" style="font-size: 1.25rem;"></i>
+      <i class="fa-solid ${iconClass}" style="font-size:1.25rem;color:${iconColor};"></i>
       <div>
-        <strong style="display: block; font-size: 0.95rem;">Gửi Thành Công!</strong>
-        <span style="font-size: 0.85rem; color: #CBD5E1;">${message}</span>
-      </div>
-    `;
+        <strong style="display:block;font-size:0.95rem;color:#fff;">${type === 'error' ? 'Lỗi' : 'Thông báo'}</strong>
+        <span style="font-size:0.85rem;color:#CBD5E1;">${message}</span>
+      </div>`;
     toastContainer.appendChild(toast);
-
     setTimeout(() => {
       toast.style.opacity = '0';
       toast.style.transform = 'translateX(100%)';
@@ -185,38 +399,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 4000);
   }
 
-  if (rfqForm) {
-    rfqForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      showToast(`Yêu cầu báo giá cho sản phẩm ${product.code} đã được gửi thành công.`);
-      rfqForm.reset();
-      if (rfqModal) rfqModal.classList.remove('active');
-    });
-  }
-
-  // 8. Related Level 3 Products
-  if (relatedProductsGrid) {
-    const relatedList = getRelatedProducts(product.id, 3);
-    relatedProductsGrid.innerHTML = '';
-
-    relatedList.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'product-card';
-      card.innerHTML = `
-        <div class="product-img-holder">
-          <span class="product-tag">${item.code}</span>
-          <img src="${item.mainImage}" alt="${item.name}">
-        </div>
-        <div class="product-body">
-          <h3 class="product-title">${item.name}</h3>
-          <p class="product-desc">${item.shortDesc}</p>
-          <div class="product-footer">
-            <a href="/product-detail.html?id=${item.id}" class="btn btn-outline btn-sm" style="flex: 1; text-align: center;">Xem Chi Tiết</a>
-            <button class="btn btn-primary btn-sm open-rfq-btn" onclick="location.href='/product-detail.html?id=${item.id}'">Báo Giá</button>
-          </div>
-        </div>
-      `;
-      relatedProductsGrid.appendChild(card);
-    });
+  function esc(str) {
+    return String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
   }
 });
