@@ -1598,35 +1598,47 @@ button, input, select, textarea {
   .header-center { margin-bottom: 2.5rem; }
 
   /* About */
+  .about-section { padding: 2.5rem 0; }
+
   .about-grid {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 1.5rem;
   }
 
-  .about-img-main {
-    height: 280px;
+  /* Hide image on mobile — save space, focus on content */
+  .about-image-stack { display: none; }
+
+  .about-content-text {
+    font-size: 0.92rem;
+    margin-bottom: 1.25rem;
+    line-height: 1.65;
   }
 
-  .about-experience-badge {
-    top: -12px;
-    right: -12px;
-    padding: 0.85rem 1rem !important;
-  }
-
-  .exp-num { font-size: 1.75rem; }
-
+  /* Feature cards → compact horizontal rows */
   .features-list {
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1.75rem;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+    margin-bottom: 1.25rem;
   }
 
   .feature-card {
-    padding: 1.1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1rem;
   }
 
-  .feature-title { font-size: 0.95rem; }
-  .feature-desc  { font-size: 0.8rem; }
+  .feature-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    margin-bottom: 0;
+    font-size: 1rem;
+  }
+
+  .feature-title { font-size: 0.9rem; margin-bottom: 0.1rem; }
+  .feature-desc  { font-size: 0.78rem; }
 
   /* Products */
   .products-filter-bar {
