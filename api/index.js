@@ -1,7 +1,6 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const path = require('path');
 const productRoutes = require('../routes/productRoutes');
 const categoryRoutes = require('../routes/categoryRoutes');
 
@@ -48,32 +47,14 @@ app.post('/api/login', (req, res) => {
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 
-// Static files & HTML page routing for Vercel
-const rootDir = path.join(__dirname, '..');
-app.use(express.static(rootDir));
-app.use('/public', express.static(path.join(rootDir, 'public')));
-app.use('/assets', express.static(path.join(rootDir, 'assets')));
-
-app.get('/admin', (req, res) => {
-  res.sendFile(path.join(rootDir, 'public', 'admin.html'));
+// Health check endpoint
+app.get('/api', (req, res) => {
+  res.json({ status: 'ok', message: 'Gwo Dyi Duty VN API Serverless Function Running' });
 });
 
-app.get('/category-detail.html', (req, res) => {
-  res.sendFile(path.join(rootDir, 'category-detail.html'));
-});
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(rootDir, 'index.html'));
-});
-
-// Fallback route for all other requests to prevent 404s
-app.get('*', (req, res) => {
-  const targetFile = path.join(rootDir, req.path);
-  res.sendFile(targetFile, (err) => {
-    if (err) {
-      res.sendFile(path.join(rootDir, 'index.html'));
-    }
-  });
+// Catch-all 404 for unknown API endpoints
+app.use('/api/*', (req, res) => {
+  res.status(404).json({ success: false, error: 'API route not found' });
 });
 
 module.exports = app;
