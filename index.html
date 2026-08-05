@@ -35,19 +35,32 @@
 
       <!-- Navigation Menu -->
       <nav class="nav-menu" id="navMenu">
-        <a href="#home" class="nav-link active">Trang chủ</a>
-        <a href="#about" class="nav-link">Giới thiệu</a>
-        <a href="#products" class="nav-link">Sản phẩm</a>
-        <a href="#contact" class="nav-link">Liên hệ</a>
+        <!-- Nav Links -->
+        <a href="#home" class="nav-link active"><i class="fa-solid fa-house nav-link-icon"></i>Trang chủ</a>
+        <a href="#about" class="nav-link"><i class="fa-solid fa-circle-info nav-link-icon"></i>Giới thiệu</a>
+        <a href="#products" class="nav-link"><i class="fa-solid fa-boxes-stacked nav-link-icon"></i>Sản phẩm</a>
+        <a href="#contact" class="nav-link"><i class="fa-solid fa-phone nav-link-icon"></i>Liên hệ</a>
+
+        <!-- Mobile-only action buttons (hidden on desktop) -->
+        <div class="nav-mobile-actions">
+          <button class="btn nav-btn-login" id="adminAuthBtnMobile">
+            <i class="fa-solid fa-user"></i>
+            <span id="adminAuthBtnMobileText">Đăng Nhập</span>
+          </button>
+          <button class="btn btn-primary nav-btn-rfq open-rfq-btn">
+            <i class="fa-solid fa-file-invoice"></i>
+            <span>Nhận Báo Giá</span>
+          </button>
+        </div>
       </nav>
 
       <!-- Header Actions -->
       <div class="header-actions">
-        <button class="btn btn-sm" id="adminAuthBtn" style="color: #0f172a; border: 2px solid #334155; background: #f1f5f9; font-weight: 600; border-radius: 8px;">
+        <button class="btn btn-sm header-login-btn" id="adminAuthBtn" style="color: #0f172a; border: 2px solid #334155; background: #f1f5f9; font-weight: 600; border-radius: 8px;">
           <i class="fa-solid fa-user" style="color: #64748b;"></i>
           <span id="adminAuthBtnText">Login</span>
         </button>
-        <button class="btn btn-primary btn-sm open-rfq-btn">
+        <button class="btn btn-primary btn-sm header-rfq-btn open-rfq-btn">
           <i class="fa-solid fa-file-invoice"></i>
           <span>Nhận Báo Giá</span>
         </button>

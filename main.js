@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // Admin Auth Elements
   const adminAuthBtn = document.getElementById('adminAuthBtn');
   const adminAuthBtnText = document.getElementById('adminAuthBtnText');
+  const adminAuthBtnMobile = document.getElementById('adminAuthBtnMobile');
+  const adminAuthBtnMobileText = document.getElementById('adminAuthBtnMobileText');
   const adminControlBar = document.getElementById('adminControlBar');
   const openAddCategoryModalBtn = document.getElementById('openAddCategoryModalBtn');
   
@@ -161,15 +163,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const isAdmin = localStorage.getItem('isAdmin') === 'true' || localStorage.getItem('adminToken');
     if (isAdmin) {
       if (adminAuthBtnText) adminAuthBtnText.textContent = 'Logout';
+      if (adminAuthBtnMobileText) adminAuthBtnMobileText.textContent = 'Đăng Xuất';
       if (adminControlBar) adminControlBar.style.display = 'flex';
       if (pageAddSubProductBtn) pageAddSubProductBtn.style.display = 'inline-flex';
     } else {
       if (adminAuthBtnText) adminAuthBtnText.textContent = 'Login';
+      if (adminAuthBtnMobileText) adminAuthBtnMobileText.textContent = 'Đăng Nhập';
       if (adminControlBar) adminControlBar.style.display = 'none';
       if (pageAddSubProductBtn) pageAddSubProductBtn.style.display = 'none';
     }
   }
 
+  // Desktop login button
   adminAuthBtn?.addEventListener('click', () => {
     const isAdmin = localStorage.getItem('isAdmin') === 'true' || localStorage.getItem('adminToken');
     if (isAdmin) {
@@ -184,6 +189,12 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
       adminLoginModal?.classList.add('active');
     }
+  });
+
+  // Mobile nav login button — mirrors desktop
+  adminAuthBtnMobile?.addEventListener('click', () => {
+    navMenu?.classList.remove('active');
+    adminAuthBtn?.click();
   });
 
   adminLoginModalClose?.addEventListener('click', () => adminLoginModal?.classList.remove('active'));

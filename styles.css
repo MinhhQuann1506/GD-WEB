@@ -370,6 +370,10 @@ button, input, select, textarea {
   padding: 0.5rem;
 }
 
+/* Mobile-only elements hidden on desktop */
+.nav-link-icon   { display: none; }
+.nav-mobile-actions { display: none; }
+
 /* ==========================================================================
    HERO SECTION ('Trang chủ')
    ========================================================================== */
@@ -1393,43 +1397,24 @@ button, input, select, textarea {
   .container { padding: 0 1rem; }
 
   /* Header */
-  .site-header {
-    height: 60px;
-  }
+  .site-header { height: 60px; }
   :root { --header-height: 60px; }
 
-  .header-container {
-    padding: 0;
-    gap: 0.5rem;
-  }
+  .header-container { padding: 0; gap: 0.5rem; }
 
-  /* Brand: shrink slightly but keep on one line */
+  /* Brand: keep on single line */
   .brand-logo { gap: 0.45rem; flex-shrink: 1; min-width: 0; }
   .brand-logo-img { height: 32px; flex-shrink: 0; }
   .brand-text { min-width: 0; overflow: hidden; }
   .brand-name { font-size: 0.9rem; white-space: nowrap; }
   .brand-sub { font-size: 0.55rem; white-space: nowrap; letter-spacing: 0.06em; }
 
-  /* Header action buttons — icon only on mobile */
-  .header-actions {
-    gap: 0.4rem;
-    flex-shrink: 0;
-  }
+  /* Hide Login + Báo Giá from header on mobile — they move into nav dropdown */
+  .header-login-btn,
+  .header-rfq-btn { display: none !important; }
 
-  /* Hide text labels inside header buttons, keep icons */
-  #adminAuthBtn span,
-  .open-rfq-btn.btn-sm span {
-    display: none;
-  }
-
-  /* Make header buttons square icon buttons */
-  #adminAuthBtn,
-  .open-rfq-btn.btn-sm {
-    padding: 0.45rem 0.6rem;
-    min-width: 36px;
-    height: 36px;
-    border-radius: var(--radius-sm);
-  }
+  /* Header actions: only hamburger visible on mobile */
+  .header-actions { gap: 0.4rem; flex-shrink: 0; }
 
 
   /* Hamburger menu */
@@ -1445,32 +1430,93 @@ button, input, select, textarea {
     top: 60px;
     left: 0;
     right: 0;
-    background: var(--color-white);
+    background: #ffffff;
     flex-direction: column;
-    padding: 1.5rem 1.25rem;
+    padding: 0.75rem 1rem 1.25rem;
     gap: 0.25rem;
-    box-shadow: 0 8px 32px rgba(15,44,89,0.18);
+    box-shadow: 0 12px 40px rgba(15,44,89,0.22);
     border-bottom: 3px solid var(--color-navy);
-    transform: translateY(-120%);
-    transition: transform 0.35s cubic-bezier(0.16,1,0.3,1);
+    border-top: none;
+    transform: translateY(-110%);
+    transition: transform 0.32s cubic-bezier(0.16,1,0.3,1), opacity 0.25s ease;
     visibility: hidden;
+    opacity: 0;
     z-index: 999;
   }
 
   .nav-menu.active {
     transform: translateY(0);
     visibility: visible;
+    opacity: 1;
+  }
+
+  /* Nav link icons (desktop hidden) */
+  .nav-link-icon {
+    width: 18px;
+    text-align: center;
+    color: var(--color-navy);
+    font-size: 0.9rem;
+    flex-shrink: 0;
   }
 
   .nav-link {
-    display: block;
-    padding: 0.9rem 1rem;
-    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
     font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-slate-700);
+    transition: background 0.2s, color 0.2s;
   }
 
-  .nav-link:hover, .nav-link.active {
+  .nav-link:hover,
+  .nav-link.active {
     background: rgba(15,44,89,0.07);
+    color: var(--color-navy);
+  }
+
+  .nav-link.active .nav-link-icon { color: var(--color-crimson); }
+
+  .nav-link::after { display: none; }
+
+  /* Divider before action buttons */
+  .nav-mobile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-top: 0.75rem;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--color-slate-200);
+  }
+
+  /* Login button style inside menu */
+  .nav-btn-login {
+    width: 100%;
+    justify-content: center;
+    gap: 0.65rem;
+    padding: 0.8rem 1rem;
+    background: var(--color-slate-100);
+    border: 2px solid var(--color-slate-200);
+    color: var(--color-slate-800);
+    font-weight: 700;
+    border-radius: 10px;
+    font-size: 0.95rem;
+  }
+
+  .nav-btn-login:hover {
+    background: var(--color-slate-200);
+    border-color: var(--color-navy);
+  }
+
+  /* Báo Giá button inside menu */
+  .nav-btn-rfq {
+    width: 100%;
+    justify-content: center;
+    padding: 0.85rem 1rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
   }
 
   .nav-link::after { display: none; }
