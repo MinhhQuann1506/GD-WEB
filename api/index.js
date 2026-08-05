@@ -30,9 +30,9 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/api/login', (req, res) => {
   const { username, password } = req.body || {};
   const validUser = process.env.ADMIN_USERNAME || 'admin';
-  const validPass = process.env.ADMIN_PASSWORD || '123456';
+  const validPass = process.env.ADMIN_PASSWORD || '123';
 
-  if (username === validUser && (password === validPass || password === '123' || password === 'admin123')) {
+  if (username === validUser && password === validPass) {
     return res.json({
       success: true,
       token: 'admin-token-123',
