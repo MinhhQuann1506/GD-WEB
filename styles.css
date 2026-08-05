@@ -231,7 +231,8 @@ button, input, select, textarea {
 
 .site-header.scrolled {
   height: 70px;
-  box-shadow: 0 4px 20px rgba(15, 44, 89, 0.08);
+  box-shadow: 0 4px 20px rgba(15, 44, 89, 0.1);
+  background: rgba(255, 255, 255, 0.97); /* More opaque when scrolled for button readability */
 }
 
 .header-container {
@@ -1087,7 +1088,7 @@ button, input, select, textarea {
   display: block;
   font-weight: 600;
   font-size: 0.9rem;
-  color: var(--color-slate-700);
+  color: #1e293b;  /* Darkened from slate-700 for better readability */
   margin-bottom: 0.5rem;
 }
 
@@ -1095,17 +1096,18 @@ button, input, select, textarea {
   width: 100%;
   padding: 0.85rem 1.1rem;
   border-radius: var(--radius-sm);
-  border: 1px solid var(--color-slate-200);
-  background-color: var(--color-slate-50);
+  border: 1.5px solid var(--color-slate-200);
+  background-color: #ffffff;   /* White — not slate-50, clearer contrast with white modal */
+  color: #0f172a;              /* Explicit dark text */
   outline: none;
   font-size: 0.95rem;
   transition: var(--transition);
 }
 
 .form-input:focus, .form-select:focus, .form-textarea:focus {
-  border-color: var(--color-navy);
+  border-color: #2563eb;
   background-color: var(--color-white);
-  box-shadow: 0 0 0 3px rgba(15, 44, 89, 0.1);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
 }
 
 .form-row {
@@ -1694,4 +1696,87 @@ button, input, select, textarea {
   margin-bottom: 4rem;
 }
 
+/* ==========================================================================
+   DARK BACKGROUND PAGE OVERRIDES (category-detail.html dark-page sections)
+   ========================================================================== */
+
+body.dark-page .form-input,
+body.dark-page .form-select,
+body.dark-page .form-textarea {
+  background-color: #0f172a;
+  border-color: #334155;
+  color: #f1f5f9;
+}
+
+body.dark-page .form-input:focus,
+body.dark-page .form-select:focus,
+body.dark-page .form-textarea:focus {
+  border-color: #3b82f6;
+  background-color: #1e293b;
+  box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+}
+
+body.dark-page .form-label {
+  color: #cbd5e1;
+}
+
+/* Modal on dark page — white card stays light for readability */
+body.dark-page .modal-card .form-label { color: #1e293b; }
+body.dark-page .modal-card .form-input,
+body.dark-page .modal-card .form-select,
+body.dark-page .modal-card .form-textarea {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+
+/* Product cards on dark background pages */
+body.dark-page .product-card {
+  background: #1a3a5c;        /* Lighter mid-navy — was #1e293b (too dark) */
+  border-color: #2e5080;
+}
+
+body.dark-page .product-card:hover {
+  border-color: #60a5fa;
+  box-shadow: 0 8px 30px rgba(59,130,246,0.25);
+  background: #1e4270;
+}
+
+body.dark-page .product-title  { color: #f8fafc; }
+body.dark-page .product-desc   { color: #94a3b8; }
+body.dark-page .spec-name      { color: #7ea8cc; }
+body.dark-page .spec-val       { color: #e2e8f0; }
+
+body.dark-page .product-specs-list {
+  background: rgba(0,0,0,0.25);
+  border-color: #2e5080;
+}
+
+/* Fix invisible btn-outline on dark cards */
+body.dark-page .btn-outline {
+  border-color: rgba(255,255,255,0.35);
+  color: #e2e8f0;
+  background: rgba(255,255,255,0.06);
+}
+
+body.dark-page .btn-outline:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.6);
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   SECTION-TAG on white products section — high contrast
+   ========================================================================== */
+.products-section .section-tag {
+  background-color: rgba(15,44,89,0.1);
+  border-color: rgba(15,44,89,0.25);
+  color: #0f2c59;
+}
+
+/* ==========================================================================
+   TOAST — text always readable
+   ========================================================================== */
+.toast strong { color: #ffffff !important; }
+.toast span   { color: #cbd5e1 !important; }
 

@@ -43,6 +43,10 @@
 
       <!-- Header Actions -->
       <div class="header-actions">
+        <button class="btn btn-sm" id="adminAuthBtn" style="color: #0f172a; border: 2px solid #334155; background: #f1f5f9; font-weight: 600; border-radius: 8px;">
+          <i class="fa-solid fa-user" style="color: #64748b;"></i>
+          <span id="adminAuthBtnText">Login</span>
+        </button>
         <button class="btn btn-primary btn-sm open-rfq-btn">
           <i class="fa-solid fa-file-invoice"></i>
           <span>Nhận Báo Giá</span>
@@ -189,119 +193,141 @@
          ========================================================================== -->
     <section class="section products-section" id="products">
       <div class="container">
-        <div class="header-center">
-          <div class="section-tag">Danh Mục Sản Phẩm</div>
-          <h2 class="section-title">Năng Lực Sản Xuất & Chủng Loạt Sản Phẩm</h2>
-          <p class="section-subtitle">Cung cấp đa dạng sản phẩm tiêu chuẩn và nhận gia công theo bản vẽ kỹ thuật của doanh nghiệp.</p>
+
+        <!-- ==========================================================================
+             1. MAIN CATEGORIES VIEW CONTAINER (TIER 1 CATALOG)
+             ========================================================================== -->
+        <div id="main-categories-view">
+          <div class="header-center">
+            <div class="section-tag">Danh Mục Sản Phẩm</div>
+            <h2 class="section-title">Năng Lực Sản Xuất & Chủng Loạt Sản Phẩm</h2>
+            <p class="section-subtitle">Cung cấp đa dạng sản phẩm tiêu chuẩn và nhận gia công theo bản vẽ kỹ thuật của doanh nghiệp.</p>
+          </div>
+
+          <!-- Admin Inline Control Bar (Visible only when logged in as Admin) -->
+          <div id="adminControlBar" style="display: none; background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); border: 1px solid #3b82f6; padding: 1rem 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; box-shadow: 0 4px 16px rgba(59,130,246,0.25);">
+            <div style="display: flex; align-items: center; gap: 0.75rem;">
+              <i class="fa-solid fa-user-gear" style="font-size: 1.4rem; color: #93c5fd;"></i>
+              <div>
+                <strong style="color: #ffffff; display: block; font-size: 0.95rem; letter-spacing:0.01em;">Admin Management Portal</strong>
+                <span style="color: #bfdbfe; font-size: 0.82rem;">Quản lý danh mục (Tier 1) và sản phẩm con (Tier 2) tại đây.</span>
+              </div>
+            </div>
+            <button class="btn btn-sm" id="openAddCategoryModalBtn" style="background:#fff; color:#1e3a8a; font-weight:700; border:none;">
+              <i class="fa-solid fa-folder-plus"></i> + Thêm Danh Mục
+            </button>
+          </div>
+
+          <!-- Filter & Search Controls -->
+          <div class="products-filter-bar">
+            <!-- Category tabs are dynamically rendered by main.js based on DB + legacy categories -->
+            <div class="category-tabs" id="categoryTabs">
+              <!-- Populated dynamically -->
+            </div>
+
+            <div class="search-box">
+              <i class="fa-solid fa-magnifying-glass search-icon"></i>
+              <input type="text" id="productSearch" class="search-input" placeholder="Tìm kiếm sản phẩm...">
+            </div>
+          </div>
+
+          <!-- Product Cards Grid (Level 1: Main Category Groups) -->
+          <div class="products-grid" id="productsGrid">
+            <!-- Level 1 Category 1: Vít gỗ đầu tròn -->
+            <div class="product-card" data-category="screws" data-name="vít gỗ đầu tròn round head wood screw">
+              <div class="product-img-holder">
+                <span class="product-tag">Ốc Vít</span>
+                <img src="/assets/images/product_screws.jpg" alt="Vít gỗ đầu tròn">
+              </div>
+              <div class="product-body">
+                <h3 class="product-title">Vít Gỗ Đầu Tròn (Round Head Wood Screw)</h3>
+                <p class="product-desc">Các dòng vít gỗ đầu tròn phục vụ thi công nội thất, đóng chế tạo đồ gỗ và cơ khí gỗ công nghiệp.</p>
+                <div class="product-specs-list">
+                  <div class="spec-row">
+                    <span class="spec-name">Danh mục con:</span>
+                    <span class="spec-val">Đầu tròn răng thưa, Đầu tròn răng mịn</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-name">Vật liệu:</span>
+                    <span class="spec-val">Inox 304, Thép xi vàng, Kẽm trắng</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-name">Quy mô:</span>
+                    <span class="spec-val">Đa dạng sản phẩm cụ thể</span>
+                  </div>
+                </div>
+                <div class="product-footer">
+                  <button class="btn btn-outline btn-sm view-tier2-btn" data-id="legacy-screws">Xem Danh Mục Con</button>
+                  <button class="btn btn-primary btn-sm open-rfq-btn" data-product="Vít Gỗ Đầu Tròn">Báo giá</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Level 1 Category 2: Bu lông lục giác -->
+            <div class="product-card" data-category="bolts" data-name="bu lông lục giác hex bolt">
+              <div class="product-img-holder">
+                <span class="product-tag">Bu Lông</span>
+                <img src="/assets/images/product_bolts.jpg" alt="Bu lông lục giác">
+              </div>
+              <div class="product-body">
+                <h3 class="product-title">Bu Lông Lục Giác (Hex Bolt)</h3>
+                <p class="product-desc">Các dòng bu lông lục giác chịu ứng suất lực kéo nén lớn phục vụ nhà xưởng, cầu đường và cơ khí nặng.</p>
+                <div class="product-specs-list">
+                  <div class="spec-row">
+                    <span class="spec-name">Danh mục con:</span>
+                    <span class="spec-val">Lục giác cường độ cao 8.8, Mặt bích</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-name">Độ bền:</span>
+                    <span class="spec-val">Cấp bền 8.8, 10.9, 12.9</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-name">Quy cách:</span>
+                    <span class="spec-val">Gia công theo bản vẽ B2B</span>
+                  </div>
+                </div>
+                <div class="product-footer">
+                  <button class="btn btn-outline btn-sm view-tier2-btn" data-id="legacy-bolts">Xem Danh Mục Con</button>
+                  <button class="btn btn-primary btn-sm open-rfq-btn" data-product="Bu Lông Lục Giác">Báo giá</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Level 1 Category 3: Tán & Đai ốc -->
+            <div class="product-card" data-category="nuts" data-name="tán đai ốc hex nut lock nut">
+              <div class="product-img-holder">
+                <span class="product-tag">Tán / Đai Ốc</span>
+                <img src="/assets/images/product_nuts.jpg" alt="Tán & Đai ốc">
+              </div>
+              <div class="product-body">
+                <h3 class="product-title">Tán & Đai Ốc (Nut & Lock Nut)</h3>
+                <p class="product-desc">Các loại đai ốc tiêu chuẩn, đai ốc khóa chống trượt và tán bích ăn khớp mượt mà với bu lông.</p>
+                <div class="product-specs-list">
+                  <div class="spec-row">
+                    <span class="spec-name">Danh mục con:</span>
+                    <span class="spec-val">Tán khóa nylon chống trượt, Tán đệm</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-name">Vật liệu:</span>
+                    <span class="spec-val">Thép cacbon, Inox 304/316</span>
+                  </div>
+                  <div class="spec-row">
+                    <span class="spec-name">Tính năng:</span>
+                    <span class="spec-val">Chống trượt ren & nới lỏng</span>
+                  </div>
+                </div>
+                <div class="product-footer">
+                  <button class="btn btn-outline btn-sm view-tier2-btn" data-id="legacy-nuts">Xem Danh Mục Con</button>
+                  <button class="btn btn-primary btn-sm open-rfq-btn" data-product="Tán & Đai Ốc">Báo giá</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Filter & Search Controls -->
-        <div class="products-filter-bar">
-          <div class="category-tabs">
-            <button class="tab-btn active" data-filter="all">Tất cả</button>
-            <button class="tab-btn" data-filter="screws">Ốc Vít</button>
-            <button class="tab-btn" data-filter="bolts">Bu Lông</button>
-            <button class="tab-btn" data-filter="nuts">Tán / Đai Ốc</button>
-          </div>
 
-          <div class="search-box">
-            <i class="fa-solid fa-magnifying-glass search-icon"></i>
-            <input type="text" id="productSearch" class="search-input" placeholder="Tìm kiếm sản phẩm...">
-          </div>
-        </div>
+        <!-- Tier 2 products are now shown on category-detail.html?id=CATEGORY_ID -->
 
-        <!-- Product Cards Grid (Level 1: Main Category Groups) -->
-        <div class="products-grid" id="productsGrid">
-          <!-- Level 1 Category 1: Vít gỗ đầu tròn -->
-          <div class="product-card" data-category="screws" data-name="vít gỗ đầu tròn round head wood screw">
-            <div class="product-img-holder">
-              <span class="product-tag">Ốc Vít</span>
-              <img src="/assets/images/product_screws.jpg" alt="Vít gỗ đầu tròn">
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Vít Gỗ Đầu Tròn (Round Head Wood Screw)</h3>
-              <p class="product-desc">Các dòng vít gỗ đầu tròn phục vụ thi công nội thất, đóng chế tạo đồ gỗ và cơ khí gỗ công nghiệp.</p>
-              <div class="product-specs-list">
-                <div class="spec-row">
-                  <span class="spec-name">Danh mục con:</span>
-                  <span class="spec-val">Đầu tròn răng thưa, Đầu tròn răng mịn</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-name">Vật liệu:</span>
-                  <span class="spec-val">Inox 304, Thép xi vàng, Kẽm trắng</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-name">Quy mô:</span>
-                  <span class="spec-val">Đa dạng sản phẩm cụ thể</span>
-                </div>
-              </div>
-              <div class="product-footer">
-                <a href="/category-detail.html?id=vit-go-dau-tron" class="btn btn-outline btn-sm">Xem Danh Mục Con</a>
-                <button class="btn btn-primary btn-sm open-rfq-btn" data-product="Vít Gỗ Đầu Tròn">Báo giá</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Level 1 Category 2: Bu lông lục giác -->
-          <div class="product-card" data-category="bolts" data-name="bu lông lục giác hex bolt">
-            <div class="product-img-holder">
-              <span class="product-tag">Bu Lông</span>
-              <img src="/assets/images/product_bolts.jpg" alt="Bu lông lục giác">
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Bu Lông Lục Giác (Hex Bolt)</h3>
-              <p class="product-desc">Các dòng bu lông lục giác chịu ứng suất lực kéo nén lớn phục vụ nhà xưởng, cầu đường và cơ khí nặng.</p>
-              <div class="product-specs-list">
-                <div class="spec-row">
-                  <span class="spec-name">Danh mục con:</span>
-                  <span class="spec-val">Lục giác cường độ cao 8.8, Mặt bích</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-name">Độ bền:</span>
-                  <span class="spec-val">Cấp bền 8.8, 10.9, 12.9</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-name">Quy cách:</span>
-                  <span class="spec-val">Gia công theo bản vẽ B2B</span>
-                </div>
-              </div>
-              <div class="product-footer">
-                <a href="/category-detail.html?id=bu-long-luc-giac" class="btn btn-outline btn-sm">Xem Danh Mục Con</a>
-                <button class="btn btn-primary btn-sm open-rfq-btn" data-product="Bu Lông Lục Giác">Báo giá</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Level 1 Category 3: Tán & Đai ốc -->
-          <div class="product-card" data-category="nuts" data-name="tán đai ốc hex nut lock nut">
-            <div class="product-img-holder">
-              <span class="product-tag">Tán / Đai Ốc</span>
-              <img src="/assets/images/product_nuts.jpg" alt="Tán & Đai ốc">
-            </div>
-            <div class="product-body">
-              <h3 class="product-title">Tán & Đai Ốc (Nut & Lock Nut)</h3>
-              <p class="product-desc">Các loại đai ốc tiêu chuẩn, đai ốc khóa chống trượt và tán bích ăn khớp mượt mà với bu lông.</p>
-              <div class="product-specs-list">
-                <div class="spec-row">
-                  <span class="spec-name">Danh mục con:</span>
-                  <span class="spec-val">Tán khóa nylon chống trượt, Tán đệm</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-name">Vật liệu:</span>
-                  <span class="spec-val">Thép cacbon, Inox 304/316</span>
-                </div>
-                <div class="spec-row">
-                  <span class="spec-name">Tính năng:</span>
-                  <span class="spec-val">Chống trượt ren & nới lỏng</span>
-                </div>
-              </div>
-              <div class="product-footer">
-                <a href="/category-detail.html?id=tan-va-dai-oc" class="btn btn-outline btn-sm">Xem Danh Mục Con</a>
-                <button class="btn btn-primary btn-sm open-rfq-btn" data-product="Tán & Đai Ốc">Báo giá</button>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <!-- Fastener Weight & Quantity Calculator -->
         <div class="calculator-banner">
@@ -566,6 +592,146 @@
       </div>
       <div class="modal-body" id="specModalBody">
         <!-- Content inserted dynamically via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       ADMIN LOGIN MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="adminLoginModal">
+    <div class="modal-card" style="max-width: 420px;">
+      <div class="modal-header">
+        <h3><i class="fa-solid fa-user-lock" style="color: #60a5fa;"></i> Admin Login</h3>
+        <button class="modal-close" id="adminLoginModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="adminLoginForm">
+          <div class="form-group">
+            <label class="form-label" for="loginUsername">Username</label>
+            <input type="text" id="loginUsername" class="form-input" placeholder="admin" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required />
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" id="loginSubmitBtn" style="width: 100%; margin-top: 1rem;">
+            Login as Admin
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ==========================================================================
+       ADMIN ADD / EDIT TIER 1 CATEGORY MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="adminCategoryModal">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <h3 id="categoryModalTitle"><i class="fa-solid fa-folder-plus" style="color: #60a5fa;"></i> Add Category (Tier 1)</h3>
+        <button class="modal-close" id="adminCategoryModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="inlineCategoryForm" enctype="multipart/form-data">
+          <input type="hidden" id="inlineCategoryId" name="id" />
+
+          <div class="form-group">
+            <label class="form-label" for="categoryTitle">Category Title *</label>
+            <input type="text" id="categoryTitle" name="title" class="form-input" placeholder="e.g. Ốc Vít Công Nghiệp" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="categoryTag">Badge Tag</label>
+              <input type="text" id="categoryTag" name="tag" class="form-input" placeholder="e.g. Ốc Vít" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="categoryMaterial">Specs (Vật Liệu)</label>
+              <input type="text" id="categoryMaterial" name="specsMaterial" class="form-input" placeholder="Inox 304, Thép xi vàng" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="categoryDescription">Description</label>
+            <textarea id="categoryDescription" name="description" class="form-textarea" rows="3" placeholder="Category overview..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="categoryImage">Category Image</label>
+            <input type="file" id="categoryImage" name="image" class="form-input" accept="image/*" />
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" id="categorySubmitBtn" style="width: 100%; margin-top: 1rem;">
+            Save Category
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       ADMIN ADD / EDIT TIER 2 PRODUCT / SUBCATEGORY MODAL
+       ========================================================================== -->
+  <div class="modal-overlay" id="adminProductModal">
+    <div class="modal-card" style="max-width: 540px;">
+      <div class="modal-header">
+        <h3 id="productModalTitle"><i class="fa-solid fa-box" style="color: #60a5fa;"></i> Add Sub-Product (Tier 2)</h3>
+        <button class="modal-close" id="adminProductModalClose">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="inlineProductForm" enctype="multipart/form-data">
+          <input type="hidden" id="inlineProductId" name="id" />
+
+          <div class="form-group">
+            <label class="form-label" for="inlineName">Sub-Product Name *</label>
+            <input type="text" id="inlineName" name="name" class="form-input" placeholder="e.g. Vít Gỗ Đầu Tròn Răng Thưa" required />
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="inlinePrice">Price ($) *</label>
+              <input type="number" id="inlinePrice" name="price" step="0.01" min="0" class="form-input" placeholder="12.50" required />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inlineCategorySelect">Parent Category (Tier 1)</label>
+              <select id="inlineCategorySelect" name="categoryId" class="form-select">
+                <!-- Dynamically populated Tier 1 categories -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="inlineSpecsMaterial">Material Specs</label>
+              <input type="text" id="inlineSpecsMaterial" name="specsMaterial" class="form-input" placeholder="Inox 304 / 316" />
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="inlineSpecsDimensions">Dimensions</label>
+              <input type="text" id="inlineSpecsDimensions" name="specsDimensions" class="form-input" placeholder="M4 - M12" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inlineDescription">Description</label>
+            <textarea id="inlineDescription" name="description" class="form-textarea" rows="2" placeholder="Sub-product details..."></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="inlineImage">Product Image (Cloudinary)</label>
+            <input type="file" id="inlineImage" name="image" class="form-input" accept="image/*" />
+            <div id="inlineImagePreviewContainer" style="margin-top: 0.5rem; width: 100%; height: 100px; border: 1px dashed rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #0f172a;">
+              <img id="inlineImagePreview" src="" alt="Preview" style="display: none; width: 100%; height: 100%; object-fit: cover;" />
+              <span id="inlineImagePlaceholder" style="font-size: 0.85rem; color: #94a3b8;">No image selected</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-lg" id="inlineProductSubmitBtn" style="width: 100%; margin-top: 1rem;">
+            Save Sub-Product
+          </button>
+        </form>
       </div>
     </div>
   </div>
