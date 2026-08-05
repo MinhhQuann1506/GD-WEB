@@ -1,6 +1,9 @@
 require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
+const fs = require('fs');
+
 const productRoutes = require('../routes/productRoutes');
 const categoryRoutes = require('../routes/categoryRoutes');
 
@@ -47,14 +50,37 @@ app.post('/api/login', (req, res) => {
 app.use('/api/categories', categoryRoutes);
 app.use('/api/products', productRoutes);
 
-// Health check endpoint
-app.get('/api', (req, res) => {
+// Health check API endpoint
+app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'Gwo Dyi Duty VN API Serverless Function Running' });
 });
 
-// Catch-all 404 for unknown API endpoints
-app.use('/api/*', (req, res) => {
-  res.status(404).json({ success: false, error: 'API route not found' });
+// Static Files & Page Routing for Vercel Serverless Function
+const rootDir = path.join(__dirname, '..');
+
+app.use('/assets', express.static(path.join(rootDir, 'assets')));
+app.use('/public', express.static(path.join(rootDir, 'public')));
+app.use(express.static(rootDir));
+
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(rootDir, 'public', 'admin.html'));
+});
+
+app.get('/category-detail.html', (req, res) => {
+  res.sendFile(path.join(rootDir, 'category-detail.html'));
+});
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(rootDir, 'index.html'));
+});
+
+// Catch-all route to serve static files or fallback to index.html (Prevents 404 on Vercel)
+app.get('*', (req, res) => {
+  const requestedPath = path.join(rootDir, req.path);
+  if (fs.existsSync(requestedPath) && fs.statSync(requestedPath).isFile()) {
+    return res.sendFile(requestedPath);
+  }
+  return res.sendFile(path.join(rootDir, 'index.html'));
 });
 
 module.exports = app;

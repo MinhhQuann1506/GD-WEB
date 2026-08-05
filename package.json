@@ -2,7 +2,7 @@
   "name": "gwo-dyi-duty-vn",
   "version": "1.0.0",
   "description": "Gwo Dyi Duty VN - Node.js Express & MongoDB Backend",
-  "main": "server.js",
+  "main": "api/index.js",
   "scripts": {
     "start": "node server.js"
   },

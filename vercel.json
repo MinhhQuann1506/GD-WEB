@@ -1,13 +1,14 @@
 {
   "version": 2,
-  "rewrites": [
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "**"
+    }
+  },
+  "routes": [
     {
-      "source": "/api/(.*)",
-      "destination": "/api"
-    },
-    {
-      "source": "/admin",
-      "destination": "/public/admin.html"
+      "src": "/(.*)",
+      "dest": "/api/index.js"
     }
   ]
 }
