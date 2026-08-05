@@ -1844,4 +1844,140 @@ body.dark-page .site-header.scrolled .mobile-toggle {
   color: var(--color-navy);
 }
 
+/* ==========================================================================
+   MOBILE RESPONSIVE — Full coverage ≤ 768px & ≤ 480px
+   ========================================================================== */
 
+@media (max-width: 768px) {
+
+  /* --- Base --- */
+  html { font-size: 15px; }
+
+  .section { padding: 4rem 0; }
+
+  .container { padding: 0 1rem; }
+
+  /* --- Header / Nav --- */
+  .site-header { --header-height: 64px; height: 64px; padding: 0 1rem; }
+
+  .brand-name { font-size: 1rem; }
+  .brand-sub  { font-size: 0.65rem; }
+
+  .brand-logo { width: 36px; height: 36px; }
+
+  /* --- Hero --- */
+  .hero-section { padding: 6rem 0 3rem; min-height: auto; }
+
+  .hero-title { font-size: 2rem; line-height: 1.2; }
+
+  .hero-subtitle { font-size: 1rem; }
+
+  .hero-actions { flex-direction: column; gap: 0.75rem; }
+  .hero-actions .btn { width: 100%; text-align: center; justify-content: center; }
+
+  .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+
+  .stat-number { font-size: 1.75rem; }
+
+  .hero-image-wrapper { margin-top: 2rem; border-radius: var(--radius-md); }
+
+  /* --- Section headings --- */
+  .section-title { font-size: 1.75rem; }
+  .section-subtitle { font-size: 0.95rem; }
+
+  /* --- About --- */
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+  .about-image { border-radius: var(--radius-md); }
+
+  .value-cards { grid-template-columns: 1fr; gap: 1rem; }
+
+  /* --- Products grid --- */
+  .products-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .product-card { padding: 1.25rem; }
+
+  .product-title { font-size: 0.95rem; }
+
+  /* --- Contact --- */
+  .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+  .contact-info-card { padding: 1.5rem; }
+
+  /* --- Footer --- */
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+
+  .footer { padding: 3rem 0 1.5rem; }
+
+  .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; font-size: 0.8rem; }
+
+  /* --- Calculator banner --- */
+  .calculator-banner { padding: 2rem 1.25rem; border-radius: var(--radius-md); }
+
+  .calc-grid { grid-template-columns: 1fr; }
+
+  /* --- Product Detail Page --- */
+  .product-detail-card { padding: 1.25rem; }
+
+  .detail-grid { grid-template-columns: 1fr !important; gap: 2rem; }
+
+  .detail-image-col img { border-radius: var(--radius-md); }
+
+  .detail-top-bar { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+
+  .specs-table th,
+  .specs-table td { padding: 0.6rem 0.75rem; font-size: 0.85rem; }
+
+  .detail-actions { flex-direction: column; gap: 0.75rem; }
+  .detail-actions .btn { width: 100%; justify-content: center; }
+
+  .admin-toolbar { flex-wrap: wrap; gap: 0.5rem; }
+  .admin-toolbar .btn { flex: 1 1 45%; justify-content: center; font-size: 0.82rem; }
+
+  /* --- Category Detail Page --- */
+  .category-header-banner { padding: 1.75rem 1.25rem; border-radius: var(--radius-md); }
+
+  .cat-banner-title { font-size: 1.6rem; }
+
+  .cat-meta-info { gap: 1rem; }
+
+  .sub-products-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  /* --- Modals --- */
+  .modal-card { width: 95vw; padding: 1.5rem; border-radius: var(--radius-md); max-height: 90vh; overflow-y: auto; }
+
+  /* --- Toast --- */
+  .toast { right: 1rem; left: 1rem; width: auto; }
+
+  /* --- Breadcrumb --- */
+  .breadcrumb { flex-wrap: wrap; font-size: 0.8rem; }
+}
+
+/* Extra small phones (≤ 480px) */
+@media (max-width: 480px) {
+
+  html { font-size: 14px; }
+
+  .hero-title { font-size: 1.7rem; }
+
+  .products-grid,
+  .sub-products-grid { grid-template-columns: 1fr; }
+
+  .hero-stats { grid-template-columns: 1fr 1fr; }
+
+  .stat-number { font-size: 1.5rem; }
+
+  .footer-grid { gap: 1.5rem; }
+
+  .features-list { grid-template-columns: 1fr; }
+
+  .form-row { grid-template-columns: 1fr; }
+
+  .section-title { font-size: 1.5rem; }
+
+  .product-detail-card { padding: 1rem; }
+
+  .specs-table { font-size: 0.8rem; }
+
+  .admin-toolbar .btn { flex: 1 1 100%; }
+}
