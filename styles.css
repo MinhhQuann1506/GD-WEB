@@ -1402,19 +1402,19 @@ button, input, select, textarea {
 
   .header-container { padding: 0; gap: 0.5rem; }
 
-  /* Brand: keep on single line */
-  .brand-logo { gap: 0.45rem; flex-shrink: 1; min-width: 0; }
+  /* Brand: fill remaining space, no squeezing */
+  .brand-logo { gap: 0.45rem; flex: 1; min-width: 0; }
   .brand-logo-img { height: 32px; flex-shrink: 0; }
-  .brand-text { min-width: 0; overflow: hidden; }
-  .brand-name { font-size: 0.9rem; white-space: nowrap; }
-  .brand-sub { font-size: 0.55rem; white-space: nowrap; letter-spacing: 0.06em; }
+  .brand-text { min-width: 0; }
+  .brand-name { font-size: 0.88rem; white-space: nowrap; }
+  .brand-sub { font-size: 0.55rem; white-space: nowrap; letter-spacing: 0.05em; }
 
   /* Hide Login + Báo Giá from header on mobile — they move into nav dropdown */
   .header-login-btn,
   .header-rfq-btn { display: none !important; }
 
-  /* Header actions: only hamburger visible on mobile */
-  .header-actions { gap: 0.4rem; flex-shrink: 0; }
+  /* Header actions: only hamburger visible */
+  .header-actions { gap: 0; flex-shrink: 0; }
 
 
   /* Hamburger menu */
