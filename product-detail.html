@@ -18,6 +18,12 @@
     import { injectSpeedInsights } from '@vercel/speed-insights';
     injectSpeedInsights();
   </script>
+  <!-- Vercel Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+  <script type="module">
+    import { inject } from '@vercel/analytics';
+    inject();
+  </script>
 </head>
 <body>
 
