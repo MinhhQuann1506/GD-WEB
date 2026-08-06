@@ -950,7 +950,7 @@ document.addEventListener('DOMContentLoaded', () => {
     contactForm.addEventListener('submit', (e) => {
       e.preventDefault();
       const name = document.getElementById('contactName')?.value || 'Quý khách';
-      showToast(`Cảm ơn ${name}! Gwo Dyi Duty VN đã nhận lời nhắn và sẽ phản hồi ngay.`);
+      showToast(`Cảm ơn ${name}! Gwo Dyi Duty đã nhận lời nhắn và sẽ phản hồi ngay.`);
       contactForm.reset();
     });
   }

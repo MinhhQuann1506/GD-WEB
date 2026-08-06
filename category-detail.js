@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!categoryData) throw new Error('Category not found');
 
       // 2. Update page metadata
-      document.title = `${categoryData.title} - Gwo Dyi Duty VN`;
+      document.title = `${categoryData.title} - Gwo Dyi Duty`;
       if (breadcrumbCategory) breadcrumbCategory.textContent = categoryData.title;
       if (catBannerTitle) catBannerTitle.textContent = categoryData.title;
       if (catBannerDesc) catBannerDesc.textContent = categoryData.description || 'Gia công theo quy cách & bản vẽ công nghiệp.';

@@ -104,7 +104,7 @@ router.post('/', uploadSingleImage('image'), async (req, res) => {
         material:     specsMaterial     || 'Inox 304, Thép cacbon',
         dimensions:   specsDimensions   || 'Tiêu chuẩn',
         unitWeight:   Number(unitWeight) || 0,
-        manufacturer: specsManufacturer || 'GWO DYI DUTY VN Co., Ltd',
+        manufacturer: specsManufacturer || 'GWO DYI DUTY Co., Ltd',
         customWork:   specsCustomWork   || 'Có (Bản vẽ CAD/PDF, mẫu sản phẩm)',
         warranty:     specsWarranty     || 'Cam kết đổi mới với sản phẩm lỗi dung sai',
       },

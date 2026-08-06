@@ -242,7 +242,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!productData) throw new Error('Product not found');
 
       // Update main info
-      document.title = `${productData.name} - Gwo Dyi Duty VN`;
+      document.title = `${productData.name} - Gwo Dyi Duty`;
       if (productName) productName.textContent = productData.name;
       if (breadcrumbProduct) breadcrumbProduct.textContent = productData.name;
       // Price & Weight calculation
@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
       { key: 'Vật liệu cấu tạo',      val: specs.material    || 'Inox 304, Thép cacbon',                field: 'material' },
       { key: 'Quy cách kích thước',   val: specs.dimensions  || 'M3 - M24, Chiều dài tùy chọn',        field: 'dimensions' },
       { key: 'Đơn trọng',             val: specs.unitWeight !== undefined ? specs.unitWeight : 0, field: 'unitWeight' },
-      { key: 'Nhà sản xuất',          val: specs.manufacturer || 'GWO DYI DUTY VN Co., Ltd',            field: 'manufacturer' },
+      { key: 'Nhà sản xuất',          val: specs.manufacturer || 'GWO DYI DUTY Co., Ltd',            field: 'manufacturer' },
       { key: 'Gia công theo yêu cầu', val: specs.customWork  || 'Có (Bản vẽ CAD/PDF, mẫu sản phẩm)',   field: 'custom' },
       { key: 'Bảo hành kỹ thuật',     val: specs.warranty    || 'Cam kết đổi mới với sản phẩm lỗi dung sai', field: 'warranty' },
     ];
